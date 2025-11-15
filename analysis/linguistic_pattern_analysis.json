@@ -1,0 +1,432 @@
+{
+  "summary": {
+    "total": 3560,
+    "correct": 1471,
+    "incorrect": 2089
+  },
+  "adversarial_patterns": {
+    "entity_substitution": {
+      "count": 625,
+      "examples": [
+        {
+          "id": "56be4db0acb8001400a502ee",
+          "question": "Where did Super Bowl 50 take place?",
+          "ground_truth": "Santa Clara, California",
+          "prediction": "Levi's Stadium in the San Francisco Bay Area at Santa Clara, California"
+        },
+        {
+          "id": "56be4db0acb8001400a502ee-high-conf-turk0",
+          "question": "Where did Super Bowl 50 take place?",
+          "ground_truth": "Santa Clara, California",
+          "prediction": "Chicago"
+        },
+        {
+          "id": "56be4db0acb8001400a502ee-high-conf-turk1",
+          "question": "Where did Super Bowl 50 take place?",
+          "ground_truth": "Santa Clara, California",
+          "prediction": "Chicago"
+        }
+      ]
+    },
+    "negation_confusion": {
+      "count": 845,
+      "examples": [
+        {
+          "id": "56bf17653aeaaa14008c9514",
+          "question": "What was the number of solo tackles that Von Miller had in Super Bowl 50?",
+          "ground_truth": "5",
+          "prediction": "five"
+        },
+        {
+          "id": "56bf17653aeaaa14008c9514-high-conf-turk0",
+          "question": "What was the number of solo tackles that Von Miller had in Super Bowl 50?",
+          "ground_truth": "5",
+          "prediction": "five"
+        },
+        {
+          "id": "56bf17653aeaaa14008c9514-high-conf-turk1",
+          "question": "What was the number of solo tackles that Von Miller had in Super Bowl 50?",
+          "ground_truth": "5",
+          "prediction": "five"
+        }
+      ]
+    },
+    "temporal_confusion": {
+      "count": 145,
+      "examples": [
+        {
+          "id": "56bea9923aeaaa14008c91bb-high-conf-turk3",
+          "question": "What day was the Super Bowl played on?",
+          "ground_truth": "February 7, 2016",
+          "prediction": "August 18, 1991"
+        },
+        {
+          "id": "56bf10f43aeaaa14008c94fd-high-conf-turk0",
+          "question": "What year did the Denver Broncos secure a Super Bowl title for the third time?",
+          "ground_truth": "2015",
+          "prediction": "1990"
+        },
+        {
+          "id": "56bf10f43aeaaa14008c94fd-high-conf-turk1",
+          "question": "What year did the Denver Broncos secure a Super Bowl title for the third time?",
+          "ground_truth": "2015",
+          "prediction": "1990"
+        }
+      ]
+    },
+    "numeric_confusion": {
+      "count": 395,
+      "examples": [
+        {
+          "id": "56bea9923aeaaa14008c91bb-high-conf-turk3",
+          "question": "What day was the Super Bowl played on?",
+          "ground_truth": "February 7, 2016",
+          "prediction": "August 18, 1991"
+        },
+        {
+          "id": "56bf10f43aeaaa14008c94fd-high-conf-turk0",
+          "question": "What year did the Denver Broncos secure a Super Bowl title for the third time?",
+          "ground_truth": "2015",
+          "prediction": "1990"
+        },
+        {
+          "id": "56bf10f43aeaaa14008c94fd-high-conf-turk1",
+          "question": "What year did the Denver Broncos secure a Super Bowl title for the third time?",
+          "ground_truth": "2015",
+          "prediction": "1990"
+        }
+      ]
+    },
+    "paraphrase_distractor": {
+      "count": 264,
+      "examples": [
+        {
+          "id": "56d20362e7d4791d009025eb-high-conf-turk1",
+          "question": "Who won Super Bowl 50?",
+          "ground_truth": "Denver Broncos",
+          "prediction": "The Broncos"
+        },
+        {
+          "id": "56d98db6dc89441400fdb554",
+          "question": "What is the name of the stadium where Super Bowl 50 was played?",
+          "ground_truth": "Levi's Stadium.",
+          "prediction": "Levi's Stadium"
+        },
+        {
+          "id": "56d98db6dc89441400fdb552-high-conf-turk0",
+          "question": "What Florida stadium was considered for Super Bowl 50?",
+          "ground_truth": "Sun Life Stadium",
+          "prediction": "The Texas stadium"
+        }
+      ]
+    },
+    "coreference_error": {
+      "count": 1,
+      "examples": [
+        {
+          "id": "56e1c720e3433e140042316e-high-conf-turk1",
+          "question": "What kind of statement is made in the effort of establishing the time and space requirements needed to enhance the ultimate number of problems solved?",
+          "ground_truth": "quantitative statements",
+          "prediction": "His"
+        }
+      ]
+    },
+    "modal_confusion": {
+      "count": 258,
+      "examples": [
+        {
+          "id": "56beb2153aeaaa14008c9226-high-conf-turk0",
+          "question": "On what date was Super Bowl 50 given to Levi's Stadium?",
+          "ground_truth": "May 21, 2013",
+          "prediction": "November 10, 1988"
+        },
+        {
+          "id": "56beb2153aeaaa14008c9226-high-conf-turk1",
+          "question": "On what date was Super Bowl 50 given to Levi's Stadium?",
+          "ground_truth": "May 21, 2013",
+          "prediction": "November 10, 1988"
+        },
+        {
+          "id": "56beb2153aeaaa14008c9226-high-conf-turk2",
+          "question": "On what date was Super Bowl 50 given to Levi's Stadium?",
+          "ground_truth": "May 21, 2013",
+          "prediction": "November 10, 1988"
+        }
+      ]
+    },
+    "comparative_superlative": {
+      "count": 226,
+      "examples": [
+        {
+          "id": "56d6ef6a0d65d21400198260-high-conf-turk0",
+          "question": "Prior to this consideration, when did San Francisco last host a Super Bowl?",
+          "ground_truth": "1985",
+          "prediction": "1960"
+        },
+        {
+          "id": "56bebbbf3aeaaa14008c9318-high-conf-turk1",
+          "question": "What was the first Super Bowl to use the standardized logo template?",
+          "ground_truth": "Super Bowl XLV",
+          "prediction": "last Champ Bowl"
+        },
+        {
+          "id": "56bebbbf3aeaaa14008c9318-high-conf-turk2",
+          "question": "What was the first Super Bowl to use the standardized logo template?",
+          "ground_truth": "Super Bowl XLV",
+          "prediction": "last Champ Bowl"
+        }
+      ]
+    },
+    "additive_sentence": {
+      "count": 362,
+      "examples": [
+        {
+          "id": "56d6ef6a0d65d21400198260-high-conf-turk0",
+          "question": "Prior to this consideration, when did San Francisco last host a Super Bowl?",
+          "ground_truth": "1985",
+          "prediction": "1960"
+        },
+        {
+          "id": "56d99b7bdc89441400fdb5ca",
+          "question": "Who was the Denver head coach for Super Bowl 50?",
+          "ground_truth": "Gary Kubiak",
+          "prediction": "John Fox"
+        },
+        {
+          "id": "56bf301c3aeaaa14008c9551-high-conf-turk0",
+          "question": "In the 10th week of the 2015 season, what injury was Peyton Manning dealing with?",
+          "ground_truth": "plantar fasciitis",
+          "prediction": "plantar fasciitis in his left foot"
+        }
+      ]
+    },
+    "list_enumeration": {
+      "count": 135,
+      "examples": [
+        {
+          "id": "56d98c53dc89441400fdb548-high-conf-turk2",
+          "question": "What performer lead the Super Bowl XLVIII halftime show?",
+          "ground_truth": "Bruno Mars",
+          "prediction": "Jeff Dean"
+        },
+        {
+          "id": "56beb2153aeaaa14008c9226-high-conf-turk0",
+          "question": "On what date was Super Bowl 50 given to Levi's Stadium?",
+          "ground_truth": "May 21, 2013",
+          "prediction": "November 10, 1988"
+        },
+        {
+          "id": "56bf23363aeaaa14008c952f-high-conf-turk1",
+          "question": "What year did Levi's Stadium become fully approved to host Super Bowl 50?",
+          "ground_truth": "2013",
+          "prediction": "1988"
+        }
+      ]
+    }
+  },
+  "pattern_combinations": {
+    "entity_substitution": 209,
+    "entity_substitution+numeric_confusion+temporal_confusion": 1,
+    "numeric_confusion+temporal_confusion": 39,
+    "numeric_confusion": 86,
+    "entity_substitution+paraphrase_distractor": 37,
+    "negation_confusion": 220,
+    "entity_substitution+negation_confusion": 149,
+    "entity_substitution+list_enumeration+negation_confusion": 18,
+    "additive_sentence+comparative_superlative+numeric_confusion+temporal_confusion": 4,
+    "entity_substitution+list_enumeration+modal_confusion+negation_confusion+numeric_confusion+temporal_confusion": 1,
+    "entity_substitution+modal_confusion+negation_confusion+numeric_confusion+temporal_confusion": 5,
+    "modal_confusion+numeric_confusion+temporal_confusion": 9,
+    "list_enumeration+modal_confusion+numeric_confusion+temporal_confusion": 2,
+    "additive_sentence+entity_substitution": 31,
+    "additive_sentence": 61,
+    "additive_sentence+numeric_confusion": 29,
+    "negation_confusion+numeric_confusion": 21,
+    "modal_confusion": 52,
+    "comparative_superlative+paraphrase_distractor": 12,
+    "comparative_superlative+modal_confusion": 5,
+    "entity_substitution+numeric_confusion+paraphrase_distractor": 1,
+    "numeric_confusion+paraphrase_distractor": 26,
+    "comparative_superlative+negation_confusion+numeric_confusion": 8,
+    "comparative_superlative": 33,
+    "additive_sentence+comparative_superlative": 2,
+    "list_enumeration+negation_confusion": 7,
+    "additive_sentence+comparative_superlative+numeric_confusion": 2,
+    "paraphrase_distractor": 41,
+    "comparative_superlative+numeric_confusion": 10,
+    "list_enumeration+numeric_confusion+temporal_confusion": 1,
+    "additive_sentence+entity_substitution+negation_confusion": 22,
+    "additive_sentence+entity_substitution+numeric_confusion": 1,
+    "additive_sentence+entity_substitution+numeric_confusion+paraphrase_distractor": 1,
+    "additive_sentence+paraphrase_distractor": 9,
+    "list_enumeration+paraphrase_distractor": 3,
+    "modal_confusion+negation_confusion": 55,
+    "modal_confusion+negation_confusion+numeric_confusion": 5,
+    "comparative_superlative+entity_substitution+modal_confusion+negation_confusion": 2,
+    "comparative_superlative+numeric_confusion+temporal_confusion": 5,
+    "negation_confusion+numeric_confusion+temporal_confusion": 24,
+    "negation_confusion+paraphrase_distractor": 17,
+    "list_enumeration+numeric_confusion": 7,
+    "additive_sentence+comparative_superlative+negation_confusion": 19,
+    "comparative_superlative+negation_confusion": 19,
+    "comparative_superlative+entity_substitution+negation_confusion": 17,
+    "coreference_error": 1,
+    "modal_confusion+paraphrase_distractor": 5,
+    "list_enumeration": 27,
+    "comparative_superlative+modal_confusion+negation_confusion": 2,
+    "modal_confusion+numeric_confusion": 9,
+    "entity_substitution+modal_confusion+negation_confusion": 21,
+    "additive_sentence+negation_confusion": 52,
+    "modal_confusion+negation_confusion+paraphrase_distractor": 4,
+    "additive_sentence+negation_confusion+paraphrase_distractor": 24,
+    "additive_sentence+modal_confusion+negation_confusion": 18,
+    "entity_substitution+list_enumeration+numeric_confusion": 5,
+    "additive_sentence+negation_confusion+numeric_confusion+temporal_confusion": 11,
+    "comparative_superlative+entity_substitution": 16,
+    "entity_substitution+negation_confusion+paraphrase_distractor": 11,
+    "negation_confusion+numeric_confusion+paraphrase_distractor": 4,
+    "additive_sentence+list_enumeration+negation_confusion": 2,
+    "additive_sentence+modal_confusion": 8,
+    "comparative_superlative+numeric_confusion+paraphrase_distractor": 8,
+    "entity_substitution+negation_confusion+numeric_confusion+temporal_confusion": 2,
+    "comparative_superlative+modal_confusion+negation_confusion+numeric_confusion+temporal_confusion": 2,
+    "entity_substitution+modal_confusion+numeric_confusion+paraphrase_distractor": 3,
+    "comparative_superlative+list_enumeration+numeric_confusion+temporal_confusion": 1,
+    "comparative_superlative+entity_substitution+numeric_confusion+temporal_confusion": 4,
+    "comparative_superlative+negation_confusion+numeric_confusion+paraphrase_distractor+temporal_confusion": 2,
+    "comparative_superlative+entity_substitution+negation_confusion+numeric_confusion+paraphrase_distractor+temporal_confusion": 1,
+    "list_enumeration+negation_confusion+numeric_confusion": 4,
+    "additive_sentence+list_enumeration+negation_confusion+numeric_confusion+temporal_confusion": 5,
+    "additive_sentence+modal_confusion+negation_confusion+numeric_confusion+temporal_confusion": 4,
+    "additive_sentence+entity_substitution+paraphrase_distractor": 2,
+    "additive_sentence+negation_confusion+numeric_confusion": 1,
+    "additive_sentence+negation_confusion+numeric_confusion+paraphrase_distractor": 4,
+    "additive_sentence+entity_substitution+negation_confusion+numeric_confusion+paraphrase_distractor": 3,
+    "additive_sentence+list_enumeration+modal_confusion+negation_confusion+paraphrase_distractor": 1,
+    "additive_sentence+list_enumeration+numeric_confusion": 2,
+    "additive_sentence+modal_confusion+numeric_confusion": 6,
+    "additive_sentence+modal_confusion+paraphrase_distractor": 2,
+    "entity_substitution+modal_confusion": 9,
+    "entity_substitution+modal_confusion+paraphrase_distractor": 1,
+    "list_enumeration+modal_confusion+negation_confusion": 2,
+    "additive_sentence+list_enumeration+modal_confusion+negation_confusion": 2,
+    "additive_sentence+modal_confusion+negation_confusion+paraphrase_distractor": 2,
+    "numeric_confusion+paraphrase_distractor+temporal_confusion": 5,
+    "comparative_superlative+entity_substitution+list_enumeration": 4,
+    "entity_substitution+list_enumeration": 8,
+    "comparative_superlative+entity_substitution+modal_confusion": 3,
+    "comparative_superlative+entity_substitution+list_enumeration+modal_confusion": 1,
+    "entity_substitution+list_enumeration+negation_confusion+paraphrase_distractor": 6,
+    "additive_sentence+entity_substitution+list_enumeration+negation_confusion": 2,
+    "comparative_superlative+entity_substitution+negation_confusion+paraphrase_distractor": 1,
+    "additive_sentence+entity_substitution+modal_confusion+negation_confusion": 5,
+    "additive_sentence+comparative_superlative+modal_confusion+negation_confusion": 2,
+    "list_enumeration+modal_confusion+paraphrase_distractor": 3,
+    "additive_sentence+list_enumeration": 6,
+    "additive_sentence+comparative_superlative+entity_substitution+negation_confusion": 4,
+    "comparative_superlative+negation_confusion+paraphrase_distractor": 5,
+    "comparative_superlative+modal_confusion+negation_confusion+numeric_confusion": 3,
+    "comparative_superlative+modal_confusion+negation_confusion+numeric_confusion+paraphrase_distractor": 2,
+    "comparative_superlative+negation_confusion+numeric_confusion+temporal_confusion": 4,
+    "comparative_superlative+list_enumeration+negation_confusion+numeric_confusion": 1,
+    "comparative_superlative+list_enumeration+negation_confusion+paraphrase_distractor": 3,
+    "comparative_superlative+entity_substitution+paraphrase_distractor": 2,
+    "additive_sentence+comparative_superlative+negation_confusion+numeric_confusion+temporal_confusion": 1,
+    "additive_sentence+comparative_superlative+list_enumeration+numeric_confusion+temporal_confusion": 1,
+    "additive_sentence+entity_substitution+negation_confusion+numeric_confusion+paraphrase_distractor+temporal_confusion": 1,
+    "comparative_superlative+list_enumeration+numeric_confusion": 1,
+    "additive_sentence+entity_substitution+negation_confusion+paraphrase_distractor": 2,
+    "additive_sentence+comparative_superlative+entity_substitution+list_enumeration": 1,
+    "additive_sentence+comparative_superlative+entity_substitution": 3,
+    "comparative_superlative+list_enumeration+negation_confusion": 4,
+    "additive_sentence+list_enumeration+negation_confusion+paraphrase_distractor": 1,
+    "additive_sentence+numeric_confusion+paraphrase_distractor": 2,
+    "comparative_superlative+entity_substitution+temporal_confusion": 5,
+    "entity_substitution+modal_confusion+negation_confusion+numeric_confusion+paraphrase_distractor+temporal_confusion": 2,
+    "additive_sentence+comparative_superlative+list_enumeration": 1,
+    "negation_confusion+numeric_confusion+paraphrase_distractor+temporal_confusion": 3,
+    "entity_substitution+list_enumeration+paraphrase_distractor": 2
+  },
+  "most_common_combinations": [
+    {
+      "pattern": "negation_confusion",
+      "count": 220
+    },
+    {
+      "pattern": "entity_substitution",
+      "count": 209
+    },
+    {
+      "pattern": "entity_substitution+negation_confusion",
+      "count": 149
+    },
+    {
+      "pattern": "numeric_confusion",
+      "count": 86
+    },
+    {
+      "pattern": "additive_sentence",
+      "count": 61
+    },
+    {
+      "pattern": "modal_confusion+negation_confusion",
+      "count": 55
+    },
+    {
+      "pattern": "modal_confusion",
+      "count": 52
+    },
+    {
+      "pattern": "additive_sentence+negation_confusion",
+      "count": 52
+    },
+    {
+      "pattern": "paraphrase_distractor",
+      "count": 41
+    },
+    {
+      "pattern": "numeric_confusion+temporal_confusion",
+      "count": 39
+    },
+    {
+      "pattern": "entity_substitution+paraphrase_distractor",
+      "count": 37
+    },
+    {
+      "pattern": "comparative_superlative",
+      "count": 33
+    },
+    {
+      "pattern": "additive_sentence+entity_substitution",
+      "count": 31
+    },
+    {
+      "pattern": "additive_sentence+numeric_confusion",
+      "count": 29
+    },
+    {
+      "pattern": "list_enumeration",
+      "count": 27
+    },
+    {
+      "pattern": "numeric_confusion+paraphrase_distractor",
+      "count": 26
+    },
+    {
+      "pattern": "negation_confusion+numeric_confusion+temporal_confusion",
+      "count": 24
+    },
+    {
+      "pattern": "additive_sentence+negation_confusion+paraphrase_distractor",
+      "count": 24
+    },
+    {
+      "pattern": "additive_sentence+entity_substitution+negation_confusion",
+      "count": 22
+    },
+    {
+      "pattern": "negation_confusion+numeric_confusion",
+      "count": 21
+    }
+  ]
+}
