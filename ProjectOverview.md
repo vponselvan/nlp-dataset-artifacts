@@ -1,0 +1,17 @@
+Here’s a polished **project proposal paragraph** (≈250 words) for your CS388 final project on **Adversarial QA Robustness (SQuAD)** — ready to include in a proposal or progress check-in document:
+
+---
+
+### **Project Proposal: Investigating and Mitigating Adversarial Vulnerabilities in Question Answering Models**
+
+Pre-trained language models for question answering (QA) achieve high accuracy on standard benchmarks such as SQuAD, but often fail dramatically when faced with small input perturbations. Prior work (Jia & Liang, 2017) has shown that adding simple distractor sentences—known as adversarial examples—can cause models to produce confident but incorrect answers. This project aims to analyze and mitigate such adversarial vulnerabilities in QA systems using the SQuAD v1.1 dataset and the ELECTRA-small model.
+
+In the first phase, we will fine-tune ELECTRA-small on SQuAD and systematically evaluate its performance on both the original development set and an adversarially modified version constructed using AddSent-style distractors. Through quantitative and qualitative analysis, we will categorize common failure modes, such as entity substitution, negation, and semantic confusion.
+
+In the second phase, we will implement and compare two mitigation strategies: (1) **adversarial fine-tuning**, where the model is retrained with a mixture of clean and adversarial examples to improve robustness, and (2) **dataset cartography–based reweighting** (Swayamdipta et al., 2020), which identifies and upweights “hard” or ambiguous examples during training. We will evaluate the impact of these methods using exact-match and F1 scores, and visualize improvements across distractor types.
+
+Our findings will shed light on the limitations of standard QA models under distributional shift and explore practical strategies for building more resilient language understanding systems.
+
+---
+
+Would you like me to extend this into a **1-page formal project proposal document (with sections: Motivation, Objectives, Methodology, Expected Results, and Timeline)** formatted like a research summary?
