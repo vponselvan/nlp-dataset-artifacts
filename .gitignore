@@ -4,5 +4,8 @@ output/
 local*
 .DS_Store
 
-# Trained models (too large for git)
-trained_model*/
+# Exclude large checkpoint files and training artifacts
+trained_model*/checkpoint-*/
+trained_model*/runs/
+trained_model*/*.pt
+trained_model*/*.bin
