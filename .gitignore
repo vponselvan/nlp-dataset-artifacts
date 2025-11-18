@@ -2,3 +2,7 @@
 output/
 
 local*
+.DS_Store
+
+# Trained models (too large for git)
+trained_model*/

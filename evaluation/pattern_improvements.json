@@ -1,0 +1,237 @@
+{
+  "total": 3560,
+  "baseline_correct": 1471,
+  "baseline_incorrect": 2089,
+  "model_correct": 2464,
+  "model_incorrect": 1096,
+  "corrections": 1217,
+  "regressions": 224,
+  "still_wrong": 872,
+  "still_correct": 1247,
+  "correction_examples": [
+    {
+      "id": "5729e4291d04691400779653",
+      "question": "What does Rosenfield feel plays the most significant role in expanding the income gap?",
+      "ground_truth": "decline of organized labor",
+      "baseline_prediction": "the decline of organized labor",
+      "model_prediction": "decline of organized labor",
+      "context_snippet": "Sociologist Jake Rosenfield of the University of Washington asserts that the decline of organized labor in the United States has played a more significant role in expanding the income gap than technol..."
+    },
+    {
+      "id": "56d997cddc89441400fdb587-high-conf-turk0",
+      "question": "how many yards did Newton get for passes in the 2015 season?",
+      "ground_truth": "3,837",
+      "baseline_prediction": "8837",
+      "model_prediction": "3,837",
+      "context_snippet": "The Panthers offense, which led the NFL in scoring (500 points), was loaded with talent, boasting six Pro Bowl selections. Pro Bowl quarterback Cam Newton had one of his best seasons, throwing for 3,8..."
+    },
+    {
+      "id": "5727d1c93acd2414000ded41-high-conf-turk1",
+      "question": "Why did Harvard end its early admission program?",
+      "ground_truth": "disadvantage low-income and under-represented minority applicants",
+      "baseline_prediction": "the program was believed to disadvantage low-income and under-represented minority applicants applying to selective universities",
+      "model_prediction": "disadvantage low-income and under-represented minority applicants",
+      "context_snippet": "Undergraduate admission to Harvard is characterized by the Carnegie Foundation as \"more selective, lower transfer-in\". Harvard College accepted 5.3% of applicants for the class of 2019, a record low a..."
+    },
+    {
+      "id": "5729e1101d04691400779642-high-conf-turk0",
+      "question": "What does education in an area where there is high demand for workers tend to create?",
+      "ground_truth": "high wages",
+      "baseline_prediction": "hamsters",
+      "model_prediction": "high wages",
+      "context_snippet": "An important factor in the creation of inequality is variation in individuals' access to education. Education, especially in an area where there is a high demand for workers, creates high wages for th..."
+    },
+    {
+      "id": "572991943f37b319004784a5-high-conf-turk3",
+      "question": "What conjecture holds that there are always a minimum of 4 primes  between the squares of consecutive primes greater than 2?",
+      "ground_truth": "Brocard's conjecture",
+      "baseline_prediction": "H. Brocard's conjecture",
+      "model_prediction": "Brocard's conjecture",
+      "context_snippet": "A third type of conjectures concerns aspects of the distribution of primes. It is conjectured that there are infinitely many twin primes, pairs of primes with difference 2 (twin prime conjecture). Pol..."
+    },
+    {
+      "id": "5726e985dd62a815002e94dc-high-conf-turk0",
+      "question": "When was ambulatory care pharmacy approved as its own certification?",
+      "ground_truth": "2011",
+      "baseline_prediction": "1986",
+      "model_prediction": "2011",
+      "context_snippet": "In the U.S. federal health care system (including the VA, the Indian Health Service, and NIH) ambulatory care pharmacists are given full independent prescribing authority. In some states such North Ca..."
+    },
+    {
+      "id": "56f811bdaef2371900625da3-high-conf-turk0",
+      "question": "What were the papal legate's orders from the Pope?",
+      "ground_truth": "arrest Luther",
+      "baseline_prediction": "Benedict",
+      "model_prediction": "arrest Luther",
+      "context_snippet": "Pope Leo X was used to reformers and heretics, and he responded slowly, \"with great care as is proper.\" Over the next three years he deployed a series of papal theologians and envoys against Luther, w..."
+    },
+    {
+      "id": "5726534d708984140094c26d-high-conf-turk4",
+      "question": "What does Graham Twigg propose about the spread of disease?",
+      "ground_truth": "a form of anthrax",
+      "baseline_prediction": "a speech",
+      "model_prediction": "a form of anthrax",
+      "context_snippet": "A variety of alternatives to the Y. pestis have been put forward. Twigg suggested that the cause was a form of anthrax, and Norman Cantor (2001) thought it may have been a combination of anthrax and o..."
+    },
+    {
+      "id": "5727e8424b864d1900163fc1-high-conf-turk2",
+      "question": "What publication printed that the wealthiest 1% have more money than those in the bottom 90%?",
+      "ground_truth": "New York Times",
+      "baseline_prediction": "Stark Industries",
+      "model_prediction": "New York Times",
+      "context_snippet": "According to PolitiFact the top 400 richest Americans \"have more wealth than half of all Americans combined.\" According to the New York Times on July 22, 2014, the \"richest 1 percent in the United Sta..."
+    },
+    {
+      "id": "5725b92e38643c19005acbd5-high-conf-turk1",
+      "question": "When did oil finally returned to its Bretton Woods levels?",
+      "ground_truth": "1973\u20131974",
+      "baseline_prediction": "1898-1899",
+      "model_prediction": "1973\u20131974",
+      "context_snippet": "This contributed to the \"Oil Shock\". After 1971, OPEC was slow to readjust prices to reflect this depreciation. From 1947 to 1967, the dollar price of oil had risen by less than two percent per year. ..."
+    }
+  ],
+  "regression_examples": [
+    {
+      "id": "5705edcd52bb8914006896cb-high-conf-turk0",
+      "question": "How many miles south of San Jose is the north - south midway point located?",
+      "ground_truth": "11",
+      "baseline_prediction": "11",
+      "model_prediction": "11 miles"
+    },
+    {
+      "id": "5725c69738643c19005accb9",
+      "question": "What does the Beroe eat? ",
+      "ground_truth": "other ctenophores",
+      "baseline_prediction": "other ctenophores",
+      "model_prediction": "fish larvae and organisms that would otherwise have fed the fish"
+    },
+    {
+      "id": "5737804dc3c5551400e51f12",
+      "question": "What do gravitational forces act between?",
+      "ground_truth": "masses",
+      "baseline_prediction": "masses",
+      "model_prediction": "electric charges"
+    },
+    {
+      "id": "57284618ff5b5019007da0a8",
+      "question": "In what year did the university first see a drop in applications?",
+      "ground_truth": "1950s",
+      "baseline_prediction": "1950s",
+      "model_prediction": "early 1950s"
+    },
+    {
+      "id": "572976183f37b31900478432",
+      "question": "When might starch grains become overly large?",
+      "ground_truth": "Under conditions such as high atmospheric CO2 concentrations",
+      "baseline_prediction": "Under conditions such as high atmospheric CO2 concentrations",
+      "model_prediction": "very large, distorting the grana and thylakoids"
+    },
+    {
+      "id": "573735e8c3c5551400e51e71-high-conf-turk4",
+      "question": "What concept did philosophers in antiquity use to study simple machines?",
+      "ground_truth": "force",
+      "baseline_prediction": "force",
+      "model_prediction": "stationary and moving objects"
+    },
+    {
+      "id": "5705edcd52bb8914006896cb-high-conf-turk2",
+      "question": "How many miles south of San Jose is the north - south midway point located?",
+      "ground_truth": "11",
+      "baseline_prediction": "11",
+      "model_prediction": "11 miles"
+    },
+    {
+      "id": "5726ce11f1498d1400e8ebc5-high-conf-turk1",
+      "question": "What cataloging system was used by the National Art Library from the 1980s to the 1990s?",
+      "ground_truth": "MODES",
+      "baseline_prediction": "MODES",
+      "model_prediction": "MODES cataloging system"
+    },
+    {
+      "id": "56e0ef90231d4119001ac46b-high-conf-turk3",
+      "question": "What sort of power transmission did Tesla show off at his labs?",
+      "ground_truth": "wireless",
+      "baseline_prediction": "wireless",
+      "model_prediction": "wirelessly"
+    },
+    {
+      "id": "56e77cee00c9c71400d771a8",
+      "question": "What is the name of the spiritual teacher in Hinduism?",
+      "ground_truth": "guru",
+      "baseline_prediction": "guru",
+      "model_prediction": "a guru"
+    }
+  ],
+  "persistent_error_examples": [
+    {
+      "id": "572a1f086aef0514001552c3",
+      "question": "How could human inequality be addressed without resulting in an increase of environmental damage?",
+      "ground_truth": "If (as WWF argued), population levels would start to drop to a sustainable level",
+      "baseline_prediction": "corrected",
+      "model_prediction": "2 billion people), human inequality can be addressed/corrected"
+    },
+    {
+      "id": "5733f8dc4776f419006615f8-high-conf-turk1",
+      "question": "How did Vaudreuil react when Johnson was seen as larger threat?",
+      "ground_truth": "sent Dieskau to Fort St. Fr\u00e9d\u00e9ric to meet that threat",
+      "baseline_prediction": "violently",
+      "model_prediction": "sent Dieskau to Fort St. Fr\u00e9d\u00e9ric"
+    },
+    {
+      "id": "5726a09f708984140094cc3a-high-conf-turk2",
+      "question": "Where is the principle of proportionality recognized in the EC treaty?",
+      "ground_truth": "in Article 5",
+      "baseline_prediction": "Article 1",
+      "model_prediction": "Article 5"
+    },
+    {
+      "id": "56e0cbf3231d4119001ac3ae",
+      "question": "How did Tesla lose his tuition money?",
+      "ground_truth": "gambled",
+      "baseline_prediction": "gambled away his allowance and his tuition money, later gambling",
+      "model_prediction": "gambled away"
+    },
+    {
+      "id": "57265285708984140094c25b",
+      "question": "Why might rats not be responsible for the plague?",
+      "ground_truth": "the rat population was insufficient",
+      "baseline_prediction": "the DNA results may be flawed and might not have been repeated elsewhere, despite extensive samples from other mass graves",
+      "model_prediction": "insufficient"
+    },
+    {
+      "id": "5726bb645951b619008f7c3b-high-conf-turk3",
+      "question": "What dynasty did Genghis Khan plan to attack after conquering Western Xia?",
+      "ground_truth": "the Jin dynasty",
+      "baseline_prediction": "Jin",
+      "model_prediction": "Jin dynasty"
+    },
+    {
+      "id": "56e1ee4de3433e1400423210-high-conf-turk0",
+      "question": "What is the unproven assumption generally ascribed to the value of complexity classes?",
+      "ground_truth": "suspected to be unequal",
+      "baseline_prediction": "the value of simplicity",
+      "model_prediction": "unequal"
+    },
+    {
+      "id": "572634a789a1e219009ac56e",
+      "question": "How is circuit switching charecterized ",
+      "ground_truth": "by a fee per unit of connection time, even when no data is transferred",
+      "baseline_prediction": "pre-allocates dedicated network bandwidth specifically for each communication session",
+      "model_prediction": "fee per unit of information transmitted"
+    },
+    {
+      "id": "56bf23363aeaaa14008c952f-high-conf-turk1",
+      "question": "What year did Levi's Stadium become fully approved to host Super Bowl 50?",
+      "ground_truth": "2013",
+      "baseline_prediction": "1988",
+      "model_prediction": "May 21, 2013"
+    },
+    {
+      "id": "5730bc308ab72b1400f9c73f-high-conf-turk1",
+      "question": "The Ottoman empire controlled territory on three continents, Africa, Asia and which other?",
+      "ground_truth": "Europe",
+      "baseline_prediction": "the Horn of Africa",
+      "model_prediction": "Southeast Europe"
+    }
+  ]
+}
