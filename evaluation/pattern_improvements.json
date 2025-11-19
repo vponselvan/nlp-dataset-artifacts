@@ -1,237 +1,237 @@
 {
-  "total": 3560,
-  "baseline_correct": 1471,
-  "baseline_incorrect": 2089,
-  "model_correct": 2464,
-  "model_incorrect": 1096,
-  "corrections": 1217,
-  "regressions": 224,
-  "still_wrong": 872,
-  "still_correct": 1247,
+  "total": 1780,
+  "baseline_correct": 800,
+  "baseline_incorrect": 980,
+  "model_correct": 692,
+  "model_incorrect": 1088,
+  "corrections": 224,
+  "regressions": 332,
+  "still_wrong": 756,
+  "still_correct": 468,
   "correction_examples": [
     {
-      "id": "5729e4291d04691400779653",
-      "question": "What does Rosenfield feel plays the most significant role in expanding the income gap?",
-      "ground_truth": "decline of organized labor",
-      "baseline_prediction": "the decline of organized labor",
-      "model_prediction": "decline of organized labor",
-      "context_snippet": "Sociologist Jake Rosenfield of the University of Washington asserts that the decline of organized labor in the United States has played a more significant role in expanding the income gap than technol..."
+      "id": "57277944f1498d1400e8f90c-high-conf-turk1",
+      "question": "What magazine criticized ABC's programming strategy in May 1961?",
+      "ground_truth": "Life",
+      "baseline_prediction": "The magazine of Central Park",
+      "model_prediction": "Life",
+      "context_snippet": "These kinds of programs presented ABC with an image of the \"philosophy of counterprogramming against its competitors\", offering a strong lineup of programs that contrasted with those seen on its rival..."
     },
     {
-      "id": "56d997cddc89441400fdb587-high-conf-turk0",
-      "question": "how many yards did Newton get for passes in the 2015 season?",
-      "ground_truth": "3,837",
-      "baseline_prediction": "8837",
-      "model_prediction": "3,837",
-      "context_snippet": "The Panthers offense, which led the NFL in scoring (500 points), was loaded with talent, boasting six Pro Bowl selections. Pro Bowl quarterback Cam Newton had one of his best seasons, throwing for 3,8..."
+      "id": "5726dba1dd62a815002e92e4-high-conf-turk2",
+      "question": "In which year are the Meissen Vulture in the V&A collection dated?",
+      "ground_truth": "1731",
+      "baseline_prediction": "1706",
+      "model_prediction": "1731",
+      "context_snippet": "Well represented in the collection is Meissen porcelain, from the first factory in Europe to discover the Chinese method of making porcelain. Among the finest examples are the Meissen Vulture from 173..."
     },
     {
-      "id": "5727d1c93acd2414000ded41-high-conf-turk1",
-      "question": "Why did Harvard end its early admission program?",
-      "ground_truth": "disadvantage low-income and under-represented minority applicants",
-      "baseline_prediction": "the program was believed to disadvantage low-income and under-represented minority applicants applying to selective universities",
-      "model_prediction": "disadvantage low-income and under-represented minority applicants",
-      "context_snippet": "Undergraduate admission to Harvard is characterized by the Carnegie Foundation as \"more selective, lower transfer-in\". Harvard College accepted 5.3% of applicants for the class of 2019, a record low a..."
+      "id": "5726af765951b619008f7a53-high-conf-turk2",
+      "question": "Who escaped when Tem\u00fcjin emerged victorious in his conflict with Toghrul?",
+      "ground_truth": "Jamukha",
+      "baseline_prediction": "Jackson",
+      "model_prediction": "Jamukha",
+      "context_snippet": "One of the later ruptures between Toghrul and Tem\u00fcjin was Toghrul's refusal to give his daughter in marriage to Jochi, the eldest son of Tem\u00fcjin, a sign of disrespect in the Mongolian culture. This ac..."
     },
     {
-      "id": "5729e1101d04691400779642-high-conf-turk0",
-      "question": "What does education in an area where there is high demand for workers tend to create?",
-      "ground_truth": "high wages",
-      "baseline_prediction": "hamsters",
-      "model_prediction": "high wages",
-      "context_snippet": "An important factor in the creation of inequality is variation in individuals' access to education. Education, especially in an area where there is a high demand for workers, creates high wages for th..."
+      "id": "57373d0cc3c5551400e51e89-high-conf-turk1",
+      "question": "What did Aristotle refer to forced motion as?",
+      "ground_truth": "unnatural",
+      "baseline_prediction": "Plato",
+      "model_prediction": "unnatural",
+      "context_snippet": "Aristotle provided a philosophical discussion of the concept of a force as an integral part of Aristotelian cosmology. In Aristotle's view, the terrestrial sphere contained four elements that come to ..."
     },
     {
-      "id": "572991943f37b319004784a5-high-conf-turk3",
-      "question": "What conjecture holds that there are always a minimum of 4 primes  between the squares of consecutive primes greater than 2?",
-      "ground_truth": "Brocard's conjecture",
-      "baseline_prediction": "H. Brocard's conjecture",
-      "model_prediction": "Brocard's conjecture",
-      "context_snippet": "A third type of conjectures concerns aspects of the distribution of primes. It is conjectured that there are infinitely many twin primes, pairs of primes with difference 2 (twin prime conjecture). Pol..."
+      "id": "57293f353f37b3190047819f-high-conf-turk0",
+      "question": "What did Houghton say is necessary for any changes to the SPM?",
+      "ground_truth": "scientific evidence",
+      "baseline_prediction": "money",
+      "model_prediction": "scientific evidence",
+      "context_snippet": "IPCC author Richard Lindzen has made a number of criticisms of the TAR. Among his criticisms, Lindzen has stated that the WGI Summary for Policymakers (SPM) does not faithfully summarize the full WGI ..."
     },
     {
-      "id": "5726e985dd62a815002e94dc-high-conf-turk0",
-      "question": "When was ambulatory care pharmacy approved as its own certification?",
-      "ground_truth": "2011",
-      "baseline_prediction": "1986",
-      "model_prediction": "2011",
-      "context_snippet": "In the U.S. federal health care system (including the VA, the Indian Health Service, and NIH) ambulatory care pharmacists are given full independent prescribing authority. In some states such North Ca..."
+      "id": "5726dba1dd62a815002e92e4-high-conf-turk0",
+      "question": "In which year are the Meissen Vulture in the V&A collection dated?",
+      "ground_truth": "1731",
+      "baseline_prediction": "1706",
+      "model_prediction": "1731",
+      "context_snippet": "Well represented in the collection is Meissen porcelain, from the first factory in Europe to discover the Chinese method of making porcelain. Among the finest examples are the Meissen Vulture from 173..."
     },
     {
-      "id": "56f811bdaef2371900625da3-high-conf-turk0",
-      "question": "What were the papal legate's orders from the Pope?",
-      "ground_truth": "arrest Luther",
-      "baseline_prediction": "Benedict",
-      "model_prediction": "arrest Luther",
-      "context_snippet": "Pope Leo X was used to reformers and heretics, and he responded slowly, \"with great care as is proper.\" Over the next three years he deployed a series of papal theologians and envoys against Luther, w..."
+      "id": "5726f0865951b619008f82e6-high-conf-turk0",
+      "question": "What network approached Walt Disney about producing color broadcasts of his anthology series?",
+      "ground_truth": "NBC",
+      "baseline_prediction": "network of Stark Industries",
+      "model_prediction": "NBC",
+      "context_snippet": "In 1959, Walt Disney Productions, having improved its financial situation, had purchased ABC's shares in the Disneyland theme park for $7.5 million and initiated discussions to renew ABC's television ..."
     },
     {
-      "id": "5726534d708984140094c26d-high-conf-turk4",
-      "question": "What does Graham Twigg propose about the spread of disease?",
-      "ground_truth": "a form of anthrax",
-      "baseline_prediction": "a speech",
-      "model_prediction": "a form of anthrax",
-      "context_snippet": "A variety of alternatives to the Y. pestis have been put forward. Twigg suggested that the cause was a form of anthrax, and Norman Cantor (2001) thought it may have been a combination of anthrax and o..."
+      "id": "5726e313f1498d1400e8eeb5",
+      "question": "What is one factor that increases the importance of the pharmacy performing at a high level?",
+      "ground_truth": "The high cost of medications and drug-related technology",
+      "baseline_prediction": "high cost of medications and drug-related technology",
+      "model_prediction": "The high cost of medications and drug-related technology",
+      "context_snippet": "Hospital pharmacies can often be found within the premises of the hospital. Hospital pharmacies usually stock a larger range of medications, including more specialized medications, than would be feasi..."
     },
     {
-      "id": "5727e8424b864d1900163fc1-high-conf-turk2",
-      "question": "What publication printed that the wealthiest 1% have more money than those in the bottom 90%?",
-      "ground_truth": "New York Times",
-      "baseline_prediction": "Stark Industries",
-      "model_prediction": "New York Times",
-      "context_snippet": "According to PolitiFact the top 400 richest Americans \"have more wealth than half of all Americans combined.\" According to the New York Times on July 22, 2014, the \"richest 1 percent in the United Sta..."
+      "id": "5730d77ef6cb411900e244dd-high-conf-turk1",
+      "question": "How to Baptized Members become Professing Members?",
+      "ground_truth": "confirmation and sometimes the profession of faith",
+      "baseline_prediction": "through confirmation and sometimes the profession of faith",
+      "model_prediction": "confirmation and sometimes the profession of faith",
+      "context_snippet": "The United Methodist Church (UMC) practices infant and adult baptism. Baptized Members are those who have been baptized as an infant or child, but who have not subsequently professed their own faith. ..."
     },
     {
-      "id": "5725b92e38643c19005acbd5-high-conf-turk1",
-      "question": "When did oil finally returned to its Bretton Woods levels?",
-      "ground_truth": "1973\u20131974",
-      "baseline_prediction": "1898-1899",
-      "model_prediction": "1973\u20131974",
-      "context_snippet": "This contributed to the \"Oil Shock\". After 1971, OPEC was slow to readjust prices to reflect this depreciation. From 1947 to 1967, the dollar price of oil had risen by less than two percent per year. ..."
+      "id": "5730e936aca1c71400fe5b64-high-conf-turk3",
+      "question": "How many courses must a local lay servant take?",
+      "ground_truth": "at least one advanced course every three years",
+      "baseline_prediction": "at least 60",
+      "model_prediction": "at least one advanced course every three years",
+      "context_snippet": "Another position in the United Methodist Church is that of the lay servant. Although not considered clergy, lay speakers often preach during services of worship when an ordained elder, Local Pastor, A..."
     }
   ],
   "regression_examples": [
     {
-      "id": "5705edcd52bb8914006896cb-high-conf-turk0",
-      "question": "How many miles south of San Jose is the north - south midway point located?",
-      "ground_truth": "11",
-      "baseline_prediction": "11",
-      "model_prediction": "11 miles"
+      "id": "572927d06aef051400154ae0-high-conf-turk3",
+      "question": "What is the public library seen as to Kenyans?",
+      "ground_truth": "a peoples university",
+      "baseline_prediction": "a peoples university",
+      "model_prediction": "peoples university"
     },
     {
-      "id": "5725c69738643c19005accb9",
-      "question": "What does the Beroe eat? ",
-      "ground_truth": "other ctenophores",
-      "baseline_prediction": "other ctenophores",
-      "model_prediction": "fish larvae and organisms that would otherwise have fed the fish"
+      "id": "5726d993f1498d1400e8ed17-high-conf-turk1",
+      "question": "What was done to the Trajan's Column replica to fit it under the ceiling?",
+      "ground_truth": "cut in half",
+      "baseline_prediction": "cut in half",
+      "model_prediction": "full-scale replica of Trajan's Column, cut in half"
     },
     {
-      "id": "5737804dc3c5551400e51f12",
-      "question": "What do gravitational forces act between?",
-      "ground_truth": "masses",
-      "baseline_prediction": "masses",
-      "model_prediction": "electric charges"
+      "id": "57275743f1498d1400e8f680-high-conf-turk1",
+      "question": "What was the only drama extended for a second season for the 2010-11 schedule?",
+      "ground_truth": "Body of Proof",
+      "baseline_prediction": "Body of Proof",
+      "model_prediction": "V"
     },
     {
-      "id": "57284618ff5b5019007da0a8",
-      "question": "In what year did the university first see a drop in applications?",
-      "ground_truth": "1950s",
-      "baseline_prediction": "1950s",
-      "model_prediction": "early 1950s"
+      "id": "5726ace8dd62a815002e8ca0-high-conf-turk1",
+      "question": "What was constructed between 1978 and 1982 to link the Henry Cole wing to the rest of the museum?",
+      "ground_truth": "a new entrance building",
+      "baseline_prediction": "a new entrance building",
+      "model_prediction": "A hamster"
     },
     {
-      "id": "572976183f37b31900478432",
-      "question": "When might starch grains become overly large?",
-      "ground_truth": "Under conditions such as high atmospheric CO2 concentrations",
-      "baseline_prediction": "Under conditions such as high atmospheric CO2 concentrations",
-      "model_prediction": "very large, distorting the grana and thylakoids"
+      "id": "5728170d3acd2414000df443-high-conf-turk1",
+      "question": "What caused the spread of the Jacksonville fire in 1901?",
+      "ground_truth": "Spanish moss",
+      "baseline_prediction": "Spanish moss",
+      "model_prediction": "May 3"
     },
     {
-      "id": "573735e8c3c5551400e51e71-high-conf-turk4",
-      "question": "What concept did philosophers in antiquity use to study simple machines?",
-      "ground_truth": "force",
-      "baseline_prediction": "force",
-      "model_prediction": "stationary and moving objects"
+      "id": "572834524b864d1900164717",
+      "question": "How long was the first audio of a Doctor Who story?",
+      "ground_truth": "21-minute",
+      "baseline_prediction": "21-minute",
+      "model_prediction": "1966"
     },
     {
-      "id": "5705edcd52bb8914006896cb-high-conf-turk2",
-      "question": "How many miles south of San Jose is the north - south midway point located?",
-      "ground_truth": "11",
-      "baseline_prediction": "11",
-      "model_prediction": "11 miles"
+      "id": "5729081d3f37b31900477fac-high-conf-turk1",
+      "question": "What are the most abundant kind of phagocyte?",
+      "ground_truth": "Neutrophils",
+      "baseline_prediction": "Neutrophils",
+      "model_prediction": "50% to 60% of the total circulating leukocytes"
     },
     {
-      "id": "5726ce11f1498d1400e8ebc5-high-conf-turk1",
-      "question": "What cataloging system was used by the National Art Library from the 1980s to the 1990s?",
-      "ground_truth": "MODES",
-      "baseline_prediction": "MODES",
-      "model_prediction": "MODES cataloging system"
+      "id": "57286b003acd2414000df9c3",
+      "question": "When did Kublai move the Mongol capital?",
+      "ground_truth": "1264",
+      "baseline_prediction": "1264",
+      "model_prediction": "Karakorum in Mongolia to Khanbaliq in 1264"
     },
     {
-      "id": "56e0ef90231d4119001ac46b-high-conf-turk3",
-      "question": "What sort of power transmission did Tesla show off at his labs?",
-      "ground_truth": "wireless",
-      "baseline_prediction": "wireless",
-      "model_prediction": "wirelessly"
+      "id": "5726d993f1498d1400e8ed17-high-conf-turk2",
+      "question": "What was done to the Trajan's Column replica to fit it under the ceiling?",
+      "ground_truth": "cut in half",
+      "baseline_prediction": "cut in half",
+      "model_prediction": "full-scale replica of Trajan's Column, cut in half"
     },
     {
-      "id": "56e77cee00c9c71400d771a8",
-      "question": "What is the name of the spiritual teacher in Hinduism?",
-      "ground_truth": "guru",
-      "baseline_prediction": "guru",
-      "model_prediction": "a guru"
+      "id": "572753335951b619008f8855-high-conf-turk0",
+      "question": "There are direct contractual links between who?",
+      "ground_truth": "the architect's client and the main contractor",
+      "baseline_prediction": "the architect's client and the main contractor",
+      "model_prediction": "architect's client and the main contractor"
     }
   ],
   "persistent_error_examples": [
     {
-      "id": "572a1f086aef0514001552c3",
-      "question": "How could human inequality be addressed without resulting in an increase of environmental damage?",
-      "ground_truth": "If (as WWF argued), population levels would start to drop to a sustainable level",
-      "baseline_prediction": "corrected",
-      "model_prediction": "2 billion people), human inequality can be addressed/corrected"
+      "id": "572fc78d04bcaa1900d76d07",
+      "question": "Who are committees comprised of?",
+      "ground_truth": "a small number of MSPs",
+      "baseline_prediction": "MSPs",
+      "model_prediction": "MSPs"
     },
     {
-      "id": "5733f8dc4776f419006615f8-high-conf-turk1",
-      "question": "How did Vaudreuil react when Johnson was seen as larger threat?",
-      "ground_truth": "sent Dieskau to Fort St. Fr\u00e9d\u00e9ric to meet that threat",
-      "baseline_prediction": "violently",
-      "model_prediction": "sent Dieskau to Fort St. Fr\u00e9d\u00e9ric"
+      "id": "5733f8dc4776f419006615fb-high-conf-turk1",
+      "question": "Where was French withdrawal to?",
+      "ground_truth": "Ticonderoga Point,",
+      "baseline_prediction": "Ticonderoga Point",
+      "model_prediction": "Ticonderoga Point"
     },
     {
-      "id": "5726a09f708984140094cc3a-high-conf-turk2",
-      "question": "Where is the principle of proportionality recognized in the EC treaty?",
-      "ground_truth": "in Article 5",
-      "baseline_prediction": "Article 1",
-      "model_prediction": "Article 5"
+      "id": "572facb0a23a5019007fc865-high-conf-turk3",
+      "question": "Why were the initial suggestions for a devolved parliament before 1914 shelved?",
+      "ground_truth": "First World War.",
+      "baseline_prediction": "the outbreak of the First World War",
+      "model_prediction": "First World War"
     },
     {
-      "id": "56e0cbf3231d4119001ac3ae",
-      "question": "How did Tesla lose his tuition money?",
-      "ground_truth": "gambled",
-      "baseline_prediction": "gambled away his allowance and his tuition money, later gambling",
-      "model_prediction": "gambled away"
+      "id": "57274d9bf1498d1400e8f5f9",
+      "question": "What is the name of the post-independence government school system in Malaysia?",
+      "ground_truth": "National School",
+      "baseline_prediction": "National School system",
+      "model_prediction": "1957"
     },
     {
-      "id": "57265285708984140094c25b",
-      "question": "Why might rats not be responsible for the plague?",
-      "ground_truth": "the rat population was insufficient",
-      "baseline_prediction": "the DNA results may be flawed and might not have been repeated elsewhere, despite extensive samples from other mass graves",
-      "model_prediction": "insufficient"
+      "id": "572847ff3acd2414000df86c-high-conf-turk0",
+      "question": "How many pages was the Kalven Report statement?",
+      "ground_truth": "a two-page statement",
+      "baseline_prediction": "42",
+      "model_prediction": "two-page statement of the university's policy in \"social and political action"
     },
     {
-      "id": "5726bb645951b619008f7c3b-high-conf-turk3",
-      "question": "What dynasty did Genghis Khan plan to attack after conquering Western Xia?",
-      "ground_truth": "the Jin dynasty",
-      "baseline_prediction": "Jin",
-      "model_prediction": "Jin dynasty"
+      "id": "572fbfa504bcaa1900d76c73-high-conf-turk3",
+      "question": "Which month is the first in the year Parliament takes a two week vacation?",
+      "ground_truth": "April",
+      "baseline_prediction": "December",
+      "model_prediction": "April and October"
     },
     {
-      "id": "56e1ee4de3433e1400423210-high-conf-turk0",
-      "question": "What is the unproven assumption generally ascribed to the value of complexity classes?",
-      "ground_truth": "suspected to be unequal",
-      "baseline_prediction": "the value of simplicity",
-      "model_prediction": "unequal"
+      "id": "57280f974b864d1900164372-high-conf-turk1",
+      "question": "How is civil disobedience typically defined in connection of the citizen's?",
+      "ground_truth": "to the state and its laws",
+      "baseline_prediction": "non-citizens' unconnectedness",
+      "model_prediction": "state and its laws"
     },
     {
-      "id": "572634a789a1e219009ac56e",
-      "question": "How is circuit switching charecterized ",
-      "ground_truth": "by a fee per unit of connection time, even when no data is transferred",
-      "baseline_prediction": "pre-allocates dedicated network bandwidth specifically for each communication session",
-      "model_prediction": "fee per unit of information transmitted"
+      "id": "57300f8504bcaa1900d770d3-high-conf-turk1",
+      "question": "Up until 1990, Saudi Arabia played an important role in restraining what groups?",
+      "ground_truth": "Islamist",
+      "baseline_prediction": "regional paramilitary groups",
+      "model_prediction": "Islamist groups that received its aid"
     },
     {
-      "id": "56bf23363aeaaa14008c952f-high-conf-turk1",
-      "question": "What year did Levi's Stadium become fully approved to host Super Bowl 50?",
-      "ground_truth": "2013",
-      "baseline_prediction": "1988",
-      "model_prediction": "May 21, 2013"
+      "id": "5727fc37ff5b5019007d9a18-high-conf-turk1",
+      "question": "What effect does trade with poorer countries have on the workers in richer countries?",
+      "ground_truth": "reduced wages",
+      "baseline_prediction": "an effect",
+      "model_prediction": "reduced wages as a result of the competition, while low-skilled workers in the poor countries may see increased wages"
     },
     {
-      "id": "5730bc308ab72b1400f9c73f-high-conf-turk1",
-      "question": "The Ottoman empire controlled territory on three continents, Africa, Asia and which other?",
-      "ground_truth": "Europe",
-      "baseline_prediction": "the Horn of Africa",
-      "model_prediction": "Southeast Europe"
+      "id": "572758e0f1498d1400e8f6ae-high-conf-turk1",
+      "question": "Along with tuition, scholarships, vouchers, donations and grants, where does funding for private schools come from?",
+      "ground_truth": "endowments",
+      "baseline_prediction": "religious organizations or private individuals",
+      "model_prediction": "religious organizations or private individuals"
     }
   ]
 }

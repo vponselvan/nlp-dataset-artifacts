@@ -165,32 +165,30 @@ plt.ylabel('Trade-off Ratio (Gain/Cost)')
 plt.title('Trade-off Efficiency by Ratio')
 ```
 
-## 📊 Expected Patterns
-
-Based on your 50-50 and 80-20 results:
+## 📊 Actual Results
 
 ### Robustness (AddSent EM)
-- 90-10: ~70-75% (moderate gain)
-- 80-20: ~78-79% (strong gain) ✅
-- 70-30: ~79-80% (near maximum)
-- 60-40: ~79-80% (diminishing returns)
-- 50-50: ~79-80% (maximum, but costly)
+- 90-10: 64.78% (+10.79% gain) ✅
+- **80-20: 66.57% (+12.58% gain) ✅ BEST**
+- 70-30: 50.90% (-3.09% loss) ❌
+- 60-40: 47.02% (-6.97% loss) ❌
+- 50-50: 45.62% (-8.37% loss) ❌
 
 ### Clean Performance (SQuAD EM)
-- 90-10: ~72-75% (minimal cost)
-- 80-20: ~64-65% (acceptable cost) ✅
-- 70-30: ~60-62% (moderate cost)
-- 60-40: ~57-59% (high cost)
-- 50-50: ~55-56% (very high cost)
+- 90-10: 63.54% (-14.62% cost) ✅
+- **80-20: 62.85% (-15.31% cost) ✅**
+- 70-30: 50.19% (-27.97% cost) ❌
+- 60-40: 46.75% (-31.41% cost) ❌
+- 50-50: 44.87% (-33.29% cost) ❌
 
 ### Trade-off Ratio
-- 90-10: ~2.5-3.0x (good)
-- 80-20: ~1.8-2.0x (best) ✅
-- 70-30: ~1.5-1.7x (acceptable)
-- 60-40: ~1.2-1.4x (poor)
-- 50-50: ~1.1-1.2x (worst)
+- **80-20: 0.82x ✅ BEST**
+- 90-10: 0.74x ✅
+- 70-30: -0.11x ❌ (negative - worse than baseline)
+- 60-40: -0.22x ❌
+- 50-50: -0.25x ❌
 
-**Prediction:** 80-20 or 90-10 will have the best trade-off ratio.
+**Key Finding:** Only 90-10 and 80-20 improve performance. Higher adversarial ratios (70-30+) cause catastrophic overfitting!
 
 ## ✅ Checklist
 
