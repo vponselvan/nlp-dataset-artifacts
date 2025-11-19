@@ -244,3 +244,31 @@
    - Compare with literature
 
 **Want to start with the post-processing implementation?**
+
+**Option 1:** Strengthen Your Report (Quick wins, 1-2 hours)
+Add more mixing ratios to the table - Document your experiments with 90/10, 80/20, 60/40 ratios to show the curve
+Error re-analysis on improved model - Run your linguistic pattern analysis on the 82% EM model to see which patterns were fixed
+Add visualizations - Create bar charts comparing baseline vs fine-tuned performance by pattern type
+Update author info - Replace "Your Name" and email in the LaTeX file
+
+**Option 2:** Implement Advanced Strategies (Research depth, 3-5 days)
+Negation-Aware Training (Strategy 1):
+
+Generate synthetic negation pairs
+Add negation attention mechanism
+Expected: 82% → 85-86% EM
+Entity Contrastive Learning (Strategy 2):
+
+Extract entity pairs for contrastive loss
+Create hard negatives
+Expected: Additional 2-3% improvement
+Post-Processing (Strategy 3 - quick win!):
+
+Span expansion with NER
+Partial match handling
+Expected: 1-2 hours, +2-3% EM
+
+**Option 3:** Extend to Other Models/Datasets (Generalization, 2-3 days)
+Test on larger models: ELECTRA-base, RoBERTa-large
+Test on other adversarial datasets: SQuAD 2.0, Adversarial QA
+Cross-dataset generalization: Train on AddSent, test on SQuAD 2.0

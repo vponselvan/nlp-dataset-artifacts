@@ -375,7 +375,7 @@ def analyze_linguistic_patterns(predictions: List[Dict], dataset: List[Dict]) ->
 
 def main():
     predictions_path = "./eval_results_adversarial/eval_predictions.jsonl"
-    dataset_path = "./data/addsent_adversarial.jsonl"
+    dataset_path = "./data/addsent_eval.jsonl"
     output_path = "./analysis/linguistic_pattern_analysis.json"
     
     print("Loading data...")

@@ -9,7 +9,7 @@ echo "=========================================="
 echo ""
 
 MODEL_DIR="./trained_model_adversarial_80_20"
-ADDSENT_PATH="./data/addsent_adversarial.jsonl"
+ADDSENT_PATH="./data/addsent_eval.jsonl"
 
 # Check if model exists
 if [ ! -d "$MODEL_DIR" ]; then

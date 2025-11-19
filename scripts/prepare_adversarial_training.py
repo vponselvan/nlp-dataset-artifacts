@@ -124,7 +124,7 @@ if __name__ == "__main__":
     )
     parser.add_argument('--squad_path', type=str, default='./data/squad.jsonl',
                        help='Path to SQuAD training data')
-    parser.add_argument('--addsent_path', type=str, default='./data/addsent_adversarial.jsonl',
+    parser.add_argument('--addsent_path', type=str, default='./data/addsent_train.jsonl',
                        help='Path to AddSent adversarial data')
     parser.add_argument('--output_path', type=str, default='./data/mixed_training.jsonl',
                        help='Output path for mixed dataset')

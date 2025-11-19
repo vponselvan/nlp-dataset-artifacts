@@ -10,7 +10,7 @@ echo ""
 
 # Configuration
 SQUAD_PATH="./data/squad.jsonl"
-ADDSENT_PATH="./data/addsent_adversarial.jsonl"
+ADDSENT_PATH="./data/addsent_train.jsonl"
 MIXED_PATH="./data/mixed_training_50_50.jsonl"
 OUTPUT_DIR="./trained_model_adversarial_50_50"
 
