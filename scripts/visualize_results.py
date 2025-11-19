@@ -224,7 +224,7 @@ if __name__ == "__main__":
         create_all_plots(args.results_file)
     except FileNotFoundError:
         print("❌ Error: comparison_results.json not found!")
-        print("   Please run: python3 scripts/compare_all_models.py first")
+        print("   Please run: python3 scripts/compare_adversarial_models.py first")
     except ImportError:
         print("❌ Error: matplotlib not installed!")
         print("   Install with: pip install matplotlib")

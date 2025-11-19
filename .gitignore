@@ -4,8 +4,18 @@ output/
 local*
 .DS_Store
 
+# Virtual environment
+venv/
+env/
+.venv/
+
 # Exclude large checkpoint files and training artifacts
 trained_model*/checkpoint-*/
 trained_model*/runs/
 trained_model*/*.pt
 trained_model*/*.bin
+
+# Exclude all trained models (too large for git)
+# But keep the folder structure with .gitkeep
+trained_model_adversarial_*/*
+!trained_model_adversarial_*/.gitkeep

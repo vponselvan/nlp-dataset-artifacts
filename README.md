@@ -48,7 +48,7 @@ This repository includes a systematic study of adversarial fine-tuning for quest
 bash check_status.sh
 
 # Compare all models
-python3 scripts/compare_all_models.py
+python3 scripts/compare_adversarial_models.py
 
 # Generate visualizations
 python3 scripts/visualize_results.py
