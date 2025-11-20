@@ -29,7 +29,8 @@ python3 run.py \
   --dataset "$ADDSENT_PATH" \
   --model "$MODEL_DIR" \
   --output_dir "${OUTPUT_BASE}/addsent" \
-  --per_device_eval_batch_size 32
+  --per_device_eval_batch_size 32 \
+  --max_length 384
 
 # Evaluate on SQuAD
 echo ""
@@ -37,10 +38,11 @@ echo "Evaluating on SQuAD (clean)..."
 python3 run.py \
   --do_eval \
   --task qa \
-  --dataset "$SQUAD_PATH" \
+  --dataset squad \
   --model "$MODEL_DIR" \
   --output_dir "${OUTPUT_BASE}/squad" \
-  --per_device_eval_batch_size 32
+  --per_device_eval_batch_size 32 \
+  --max_length 384
 
 echo ""
 echo "✅ Evaluation completed!"
@@ -48,3 +50,7 @@ echo ""
 echo "Results saved to:"
 echo "  AddSent: ${OUTPUT_BASE}/addsent/"
 echo "  SQuAD: ${OUTPUT_BASE}/squad/"
+echo ""
+echo "View results:"
+echo "  cat ${OUTPUT_BASE}/addsent/eval_metrics.json"
+echo "  cat ${OUTPUT_BASE}/squad/eval_metrics.json"

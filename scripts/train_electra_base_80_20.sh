@@ -42,11 +42,10 @@ echo ""
 python3 run.py \
   --do_train \
   --task qa \
-  --model_name_or_path "$MODEL_NAME" \
+  --model "$MODEL_NAME" \
   --dataset "$MIXED_DATA" \
   --output_dir "$OUTPUT_DIR" \
-  --max_seq_length $MAX_SEQ_LENGTH \
-  --doc_stride $DOC_STRIDE \
+  --max_length $MAX_SEQ_LENGTH \
   --per_device_train_batch_size $BATCH_SIZE \
   --gradient_accumulation_steps $GRADIENT_ACCUMULATION \
   --learning_rate $LEARNING_RATE \
@@ -56,15 +55,11 @@ python3 run.py \
   --logging_steps 100 \
   --warmup_ratio 0.1 \
   --weight_decay 0.01 \
-  --fp16 \
-  --load_best_model_at_end \
-  --metric_for_best_model eval_em \
-  --evaluation_strategy epoch \
-  --eval_dataset ./data/addsent_eval.jsonl
+  --fp16
 
 echo ""
 echo "✅ Training completed!"
 echo "Model saved to: $OUTPUT_DIR"
 echo ""
 echo "Next step: Evaluate the model"
-echo "  ./scripts/evaluate_electra_base.sh"
+echo "  bash scripts/evaluate_electra_base.sh"
