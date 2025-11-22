@@ -1,0 +1,100 @@
+{
+  "models": [
+    {
+      "name": "Baseline (ELECTRA-small)",
+      "model_size": "14M",
+      "training_data": "SQuAD only",
+      "addsent_em": 53.99,
+      "addsent_f1": 61.09,
+      "squad_em": 78.16,
+      "squad_f1": 86.05,
+      "color": "#e74c3c",
+      "marker": "o"
+    },
+    {
+      "name": "Baseline (ELECTRA-base)",
+      "model_size": "110M",
+      "training_data": "SQuAD only",
+      "addsent_em": 68.90,
+      "addsent_f1": 74.86,
+      "squad_em": 85.46,
+      "squad_f1": 91.86,
+      "color": "#f39c12",
+      "marker": "s"
+    },
+    {
+      "name": "80-20 Original (ELECTRA-small)",
+      "model_size": "14M",
+      "training_data": "80% SQuAD + 20% AddSent",
+      "addsent_em": 66.57,
+      "addsent_f1": 76.08,
+      "squad_em": 62.85,
+      "squad_f1": 73.00,
+      "color": "#3498db",
+      "marker": "^"
+    },
+    {
+      "name": "80-20 Original (ELECTRA-base)",
+      "model_size": "110M",
+      "training_data": "80% SQuAD + 20% AddSent",
+      "addsent_em": 88.43,
+      "addsent_f1": 93.49,
+      "squad_em": 89.97,
+      "squad_f1": 94.14,
+      "color": "#16a085",
+      "marker": "p"
+    },
+    {
+      "name": "80-20 Augmented (ELECTRA-small)",
+      "model_size": "14M",
+      "training_data": "80% SQuAD + 20% AddSent (augmented)",
+      "addsent_em": 63.48,
+      "addsent_f1": 71.96,
+      "squad_em": 66.60,
+      "squad_f1": 76.23,
+      "color": "#9b59b6",
+      "marker": "D"
+    },
+    {
+      "name": "80-20 Augmented (ELECTRA-base)",
+      "model_size": "110M",
+      "training_data": "80% SQuAD + 20% AddSent (augmented)",
+      "addsent_em": 86.12,
+      "addsent_f1": 91.69,
+      "squad_em": 87.92,
+      "squad_f1": 93.62,
+      "color": "#27ae60",
+      "marker": "*"
+    }
+  ],
+  "key_comparisons": {
+    "model_scaling_impact": {
+      "description": "Impact of upgrading from ELECTRA-small to ELECTRA-base (baseline models)",
+      "addsent_improvement": 14.91,
+      "squad_improvement": 7.30
+    },
+    "adversarial_training_small": {
+      "description": "Impact of adversarial training on ELECTRA-small (80-20 augmented vs baseline)",
+      "addsent_improvement": 9.49,
+      "squad_cost": -11.56
+    },
+    "adversarial_training_base": {
+      "description": "Impact of adversarial training on ELECTRA-base (80-20 augmented vs baseline)",
+      "addsent_improvement": 17.22,
+      "squad_improvement": 2.46
+    },
+    "final_vs_baseline_small": {
+      "description": "Final ELECTRA-base model vs original ELECTRA-small baseline",
+      "addsent_improvement": 32.13,
+      "squad_improvement": 9.76
+    }
+  },
+  "insights": [
+    "Model scaling alone (ELECTRA-small → ELECTRA-base) improved adversarial robustness by 14.91%",
+    "Adversarial training with ELECTRA-small showed a trade-off: +9.49% adversarial, -11.56% clean",
+    "Adversarial training with ELECTRA-base eliminated the trade-off: +17.22% adversarial, +2.46% clean",
+    "ELECTRA-base 80-20 original achieved 88.43% EM on adversarial data - the BEST result!",
+    "Data augmentation slightly reduced performance for ELECTRA-base (88.43% → 86.12%)",
+    "Model capacity is critical for effective adversarial training without performance trade-offs"
+  ]
+}

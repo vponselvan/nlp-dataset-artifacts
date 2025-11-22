@@ -19,3 +19,12 @@ trained_model*/*.bin
 # But keep the folder structure with .gitkeep
 trained_model_adversarial_*/*
 !trained_model_adversarial_*/.gitkeep
+
+# Exclude ELECTRA-base models (too large)
+trained_model_electra_base_*/*
+!trained_model_electra_base_*/.gitkeep
+trained_model_base/*
+!trained_model_base/.gitkeep
+
+# Exclude evaluation results directories (keep JSON files only)
+eval_results_*/
