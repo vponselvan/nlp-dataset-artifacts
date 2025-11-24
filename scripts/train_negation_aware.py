@@ -402,11 +402,14 @@ def main():
     print("=" * 80)
     print(f"Model saved to: {args.output_dir}")
     print(f"\nFinal Performance:")
-    print(f"  SQuAD EM:   {squad_metrics['eval_squad_exact_match']:.2f}%")
-    print(f"  AddSent EM: {addsent_metrics['eval_addsent_exact_match']:.2f}%")
-    print(
-        f"  Drop: {squad_metrics['eval_squad_exact_match'] - addsent_metrics['eval_addsent_exact_match']:.2f}%"
-    )
+    
+    # Get metrics with correct keys
+    squad_em = squad_metrics.get('eval_squad_exact_match', squad_metrics.get('exact_match', 0.0))
+    addsent_em = addsent_metrics.get('eval_addsent_exact_match', addsent_metrics.get('exact_match', 0.0))
+    
+    print(f"  SQuAD EM:   {squad_em:.2f}%")
+    print(f"  AddSent EM: {addsent_em:.2f}%")
+    print(f"  Drop: {squad_em - addsent_em:.2f}%")
     print("=" * 80)
 
 

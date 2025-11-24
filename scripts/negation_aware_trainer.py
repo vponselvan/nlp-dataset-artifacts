@@ -258,9 +258,12 @@ class NegationAwareQATrainer(NegationAwareTrainer):
 
         # Post-process predictions if function provided
         if self.post_process_function is not None and eval_examples is not None:
-            output = self.post_process_function(
+            processed = self.post_process_function(
                 eval_examples, eval_dataset, output.predictions
             )
+            # Update metrics with processed results
+            if hasattr(processed, 'metrics'):
+                output.metrics.update(processed.metrics)
 
         self.log(output.metrics)
 
