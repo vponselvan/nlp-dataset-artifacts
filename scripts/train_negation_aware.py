@@ -342,8 +342,12 @@ def main():
     )
 
     print(f"\nSQuAD Results:")
-    print(f"  Exact Match: {squad_metrics['eval_squad_exact_match']:.2f}")
-    print(f"  F1: {squad_metrics['eval_squad_f1']:.2f}")
+    # Handle different possible metric key names
+    em_key = 'eval_squad_exact_match' if 'eval_squad_exact_match' in squad_metrics else 'exact_match'
+    f1_key = 'eval_squad_f1' if 'eval_squad_f1' in squad_metrics else 'f1'
+    print(f"  Exact Match: {squad_metrics.get(em_key, 0.0):.2f}")
+    print(f"  F1: {squad_metrics.get(f1_key, 0.0):.2f}")
+    print(f"  Available metrics: {list(squad_metrics.keys())}")
 
     # Evaluate on AddSent
     print("\n" + "=" * 80)
@@ -364,8 +368,12 @@ def main():
     addsent_metrics = addsent_trainer.evaluate(metric_key_prefix="eval_addsent")
 
     print(f"\nAddSent Results:")
-    print(f"  Exact Match: {addsent_metrics['eval_addsent_exact_match']:.2f}")
-    print(f"  F1: {addsent_metrics['eval_addsent_f1']:.2f}")
+    # Handle different possible metric key names
+    em_key = 'eval_addsent_exact_match' if 'eval_addsent_exact_match' in addsent_metrics else 'exact_match'
+    f1_key = 'eval_addsent_f1' if 'eval_addsent_f1' in addsent_metrics else 'f1'
+    print(f"  Exact Match: {addsent_metrics.get(em_key, 0.0):.2f}")
+    print(f"  F1: {addsent_metrics.get(f1_key, 0.0):.2f}")
+    print(f"  Available metrics: {list(addsent_metrics.keys())}")
 
     # Save all metrics
     print("\nSaving evaluation results...")
