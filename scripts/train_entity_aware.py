@@ -274,7 +274,7 @@ def main():
     # Setup training arguments
     training_args = TrainingArguments(
         output_dir=args.output_dir,
-        evaluation_strategy="epoch",
+        eval_strategy="epoch",  # Changed from evaluation_strategy
         save_strategy="epoch",
         learning_rate=args.learning_rate,
         per_device_train_batch_size=args.batch_size,
@@ -285,8 +285,7 @@ def main():
         logging_dir=f"{args.output_dir}/logs",
         logging_steps=100,
         save_total_limit=2,
-        load_best_model_at_end=True,
-        metric_for_best_model="eval_exact_match",
+        load_best_model_at_end=False,  # Disable for now due to metric issues
         seed=args.seed,
         fp16=True,  # Use mixed precision
         report_to="none",
