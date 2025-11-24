@@ -13,8 +13,10 @@ Expected improvement: +10-15% on negation-specific examples
 """
 
 import sys
+import os
 
-sys.path.append("..")
+# Add parent directory to path to import helpers
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import json
 import argparse
@@ -29,6 +31,12 @@ from transformers import (
 import evaluate
 
 from helpers import prepare_train_dataset_qa, prepare_validation_dataset_qa
+
+# Add scripts directory to path for importing negation_aware_trainer
+scripts_dir = os.path.dirname(os.path.abspath(__file__))
+if scripts_dir not in sys.path:
+    sys.path.insert(0, scripts_dir)
+
 from negation_aware_trainer import NegationAwareQATrainer
 
 
@@ -82,13 +90,37 @@ def prepare_train_dataset_with_weights(examples, tokenizer):
     Prepare training dataset with loss weights.
 
     Extends standard prepare_train_dataset_qa to include loss_weights.
+    Handles the case where one example can produce multiple features.
     """
-    # Use standard tokenization
-    tokenized = prepare_train_dataset_qa(examples, tokenizer)
+    # First, do the standard tokenization which handles overflow
+    questions = [q.lstrip() for q in examples["question"]]
+    max_seq_length = tokenizer.model_max_length
+    
+    tokenized_examples = tokenizer(
+        questions,
+        examples["context"],
+        truncation="only_second",
+        max_length=max_seq_length,
+        stride=min(max_seq_length // 2, 128),
+        return_overflowing_tokens=True,
+        return_offsets_mapping=True,
+        padding="max_length"
+    )
 
-    # Add loss weights
+    # Get sample mapping before it's used
+    sample_mapping = tokenized_examples["overflow_to_sample_mapping"]
+    
+    # Now call the standard function which will pop sample_mapping and process it
+    tokenized = prepare_train_dataset_qa(examples, tokenizer)
+    
+    # Add loss weights using the sample mapping we saved
     if "loss_weight" in examples:
-        tokenized["loss_weights"] = examples["loss_weight"]
+        # Map each feature to its original example's loss weight
+        loss_weights = [examples["loss_weight"][sample_idx] for sample_idx in sample_mapping]
+        tokenized["loss_weights"] = loss_weights
+    else:
+        # Default weight of 1.0 for all examples
+        tokenized["loss_weights"] = [1.0] * len(tokenized["input_ids"])
 
     return tokenized
 
@@ -219,7 +251,7 @@ def main():
     # Setup training arguments
     training_args = TrainingArguments(
         output_dir=args.output_dir,
-        evaluation_strategy="epoch",
+        eval_strategy="epoch",  # Changed from evaluation_strategy
         save_strategy="epoch",
         learning_rate=args.learning_rate,
         per_device_train_batch_size=args.batch_size,
@@ -230,20 +262,35 @@ def main():
         logging_dir=f"{args.output_dir}/logs",
         logging_steps=100,
         save_total_limit=2,
-        load_best_model_at_end=True,
-        metric_for_best_model="eval_exact_match",
+        load_best_model_at_end=False,  # Disable for now due to metric issues
         seed=args.seed,
         fp16=True,  # Use mixed precision for faster training
         report_to="none",  # Disable wandb/tensorboard
     )
 
     # Setup evaluation metric
+    from helpers import postprocess_qa_predictions
     metric = evaluate.load("squad")
 
     def compute_metrics(eval_preds):
         return metric.compute(
             predictions=eval_preds.predictions, references=eval_preds.label_ids
         )
+    
+    def post_process_function(examples, features, predictions):
+        """Post-process predictions to get final answers"""
+        predictions = postprocess_qa_predictions(
+            examples=examples,
+            features=features,
+            predictions=predictions,
+            n_best_size=20
+        )
+        formatted_predictions = [{"id": k, "prediction_text": v} for k, v in predictions.items()]
+        references = [{"id": ex["id"], "answers": ex["answers"]} for ex in examples]
+        
+        # Compute metrics
+        metrics = metric.compute(predictions=formatted_predictions, references=references)
+        return type('obj', (object,), {'metrics': metrics, 'predictions': formatted_predictions})()
 
     # Initialize custom trainer
     print("\n" + "=" * 80)
@@ -259,6 +306,7 @@ def main():
         tokenizer=tokenizer,
         data_collator=default_data_collator,
         compute_metrics=compute_metrics,
+        post_process_function=post_process_function,
         log_weight_stats=True,
     )
 

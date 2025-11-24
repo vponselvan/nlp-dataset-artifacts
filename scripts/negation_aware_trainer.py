@@ -56,7 +56,7 @@ class NegationAwareTrainer(Trainer):
             "weighted_loss": 0.0,
         }
 
-    def compute_loss(self, model, inputs, return_outputs=False):
+    def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
         """
         Compute weighted loss for the model.
 
@@ -70,6 +70,7 @@ class NegationAwareTrainer(Trainer):
             model: The model being trained
             inputs: Dict containing input tensors
             return_outputs: Whether to return model outputs
+            num_items_in_batch: Number of items in batch (for newer transformers versions)
 
         Returns:
             Loss tensor (and optionally model outputs)
