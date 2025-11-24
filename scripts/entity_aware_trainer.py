@@ -54,6 +54,7 @@ class EntityAwareQATrainer(Trainer):
         contrastive_weight: float = 0.5,
         margin: float = 1.0,
         log_stats: bool = True,
+        eval_examples=None,
         **kwargs,
     ):
         """
@@ -64,12 +65,14 @@ class EntityAwareQATrainer(Trainer):
                 0 = pure QA loss, 1 = pure contrastive loss
             margin: Margin for ranking loss
             log_stats: Whether to log statistics during training
+            eval_examples: Evaluation examples (for QA evaluation)
             *args, **kwargs: Standard Trainer arguments
         """
         super().__init__(*args, **kwargs)
         self.contrastive_weight = contrastive_weight
         self.margin = margin
         self.log_stats = log_stats
+        self.eval_examples = eval_examples
 
         self.stats = {
             "total_steps": 0,
