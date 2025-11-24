@@ -112,20 +112,20 @@ echo ""
 
 echo "Evaluating on SQuAD (clean)..."
 cd ..
-python run.py \
+python ../run.py \
     --model "${OUTPUT_DIR}" \
     --task qa \
-    --dataset data/squad.jsonl \
+    --dataset ../data/squad.jsonl \
     --do_eval \
     --output_dir "${OUTPUT_DIR}/eval_squad" \
     --per_device_eval_batch_size 32
 
 echo ""
 echo "Evaluating on AddSent (adversarial)..."
-python run.py \
+python ../run.py \
     --model "${OUTPUT_DIR}" \
     --task qa \
-    --dataset data/addsent_eval.jsonl \
+    --dataset ../data/addsent_eval.jsonl \
     --do_eval \
     --output_dir "${OUTPUT_DIR}/eval_addsent" \
     --per_device_eval_batch_size 32
