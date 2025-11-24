@@ -104,17 +104,42 @@ def prepare_train_dataset_with_entities(examples, tokenizer):
     Extends standard prepare_train_dataset_qa to include:
     - loss_weights
     - hard_negatives with token positions
+    Handles the case where one example can produce multiple features.
     """
-    # Use standard tokenization
+    # First, do the standard tokenization which handles overflow
+    questions = [q.lstrip() for q in examples["question"]]
+    max_seq_length = tokenizer.model_max_length
+    
+    tokenized_examples = tokenizer(
+        questions,
+        examples["context"],
+        truncation="only_second",
+        max_length=max_seq_length,
+        stride=min(max_seq_length // 2, 128),
+        return_overflowing_tokens=True,
+        return_offsets_mapping=True,
+        padding="max_length"
+    )
+
+    # Get sample mapping before it's used
+    sample_mapping = tokenized_examples["overflow_to_sample_mapping"]
+    
+    # Now call the standard function which will pop sample_mapping and process it
     tokenized = prepare_train_dataset_qa(examples, tokenizer)
-
-    # Add entity metadata
+    
+    # Add entity metadata using the sample mapping we saved
     if "loss_weight" in examples:
-        tokenized["loss_weights"] = examples["loss_weight"]
+        # Map each feature to its original example's loss weight
+        loss_weights = [examples["loss_weight"][sample_idx] for sample_idx in sample_mapping]
+        tokenized["loss_weights"] = loss_weights
+    else:
+        # Default weight of 1.0 for all examples
+        tokenized["loss_weights"] = [1.0] * len(tokenized["input_ids"])
 
-    # Add hard negatives (will be processed in collator)
+    # Add hard negatives (replicate for overflow tokens)
     if "hard_negatives" in examples:
-        tokenized["hard_negatives"] = examples["hard_negatives"]
+        hard_negatives = [examples["hard_negatives"][sample_idx] for sample_idx in sample_mapping]
+        tokenized["hard_negatives"] = hard_negatives
 
     return tokenized
 
