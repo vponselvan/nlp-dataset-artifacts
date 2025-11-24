@@ -7,6 +7,8 @@
 #
 # Goal: Fix "Partial Match" errors (30.6% of errors)
 # Example: "Broncos" → "Denver Broncos"
+#
+# Checkpoints: This script creates checkpoint files to allow resuming
 
 set -e  # Exit on error
 
@@ -16,11 +18,18 @@ echo "========================================================================"
 echo ""
 
 # Configuration
-MODEL_DIR="../trained_model_electra_80_20"
-TEST_DATA="../data/addsent_eval.jsonl"
-OUTPUT_DIR="../postprocessing_results"
+MODEL_DIR="./trained_model_electra_base_80_20"
+TEST_DATA="./data/addsent_eval.jsonl"
+OUTPUT_DIR="./postprocessing_results"
 MIN_EXPANSION_RATIO=1.3
 SPACY_MODEL="en_core_web_sm"
+
+# Checkpoint files
+CHECKPOINT_DIR="${OUTPUT_DIR}/checkpoints"
+mkdir -p "${CHECKPOINT_DIR}"
+CHECKPOINT_STEP1="${CHECKPOINT_DIR}/step1_inference.done"
+CHECKPOINT_STEP2="${CHECKPOINT_DIR}/step2_postprocessing.done"
+CHECKPOINT_STEP3="${CHECKPOINT_DIR}/step3_evaluation.done"
 
 echo "Configuration:"
 echo "  Model: ${MODEL_DIR}"
@@ -28,7 +37,15 @@ echo "  Test data: ${TEST_DATA}"
 echo "  Output dir: ${OUTPUT_DIR}"
 echo "  Min expansion ratio: ${MIN_EXPANSION_RATIO}"
 echo "  spaCy model: ${SPACY_MODEL}"
+echo "  Checkpoint dir: ${CHECKPOINT_DIR}"
 echo ""
+
+# Check for existing checkpoints
+if [ -f "${CHECKPOINT_STEP3}" ]; then
+    echo "✓ All steps already completed!"
+    echo "  To re-run, delete: ${CHECKPOINT_DIR}"
+    exit 0
+fi
 
 # Check dependencies
 echo "Checking dependencies..."
@@ -45,27 +62,31 @@ python -c "import spacy; spacy.load('${SPACY_MODEL}'); print('✓ ${SPACY_MODEL}
 
 echo ""
 
-# Step 1: Run inference (if not already done)
-echo "========================================================================"
-echo "STEP 1: Running Inference"
-echo "========================================================================"
-echo ""
+# Step 1: Run inference
+if [ -f "${CHECKPOINT_STEP1}" ]; then
+    echo "========================================================================"
+    echo "STEP 1: SKIPPED (already completed)"
+    echo "========================================================================"
+    echo "  Checkpoint found: ${CHECKPOINT_STEP1}"
+    echo "  Predictions file: ${OUTPUT_DIR}/predictions_raw.jsonl"
+    echo ""
+else
+    echo "========================================================================"
+    echo "STEP 1: Running Inference"
+    echo "========================================================================"
+    echo ""
 
-if [ ! -f "${OUTPUT_DIR}/predictions_raw.jsonl" ]; then
     echo "Running model inference on test set..."
-    cd ..
-    python ../run.py \
-        --model "${MODEL_DIR}" \
+    python3 run.py \
+        --do_eval \
         --task qa \
         --dataset "${TEST_DATA}" \
-        --do_eval \
-        --output_dir "${OUTPUT_DIR}" \
+        --model "${MODEL_DIR}" \
+        --output_dir "${OUTPUT_DIR}/temp" \
         --per_device_eval_batch_size 32
     
-    cd scripts
-    
     # Find predictions file
-    PRED_FILE=$(find ${OUTPUT_DIR} -name "*predictions*.jsonl" | head -n 1)
+    PRED_FILE=$(find ${OUTPUT_DIR}/temp -name "*predictions*.jsonl" | head -n 1)
     if [ -f "$PRED_FILE" ]; then
         cp "$PRED_FILE" "${OUTPUT_DIR}/predictions_raw.jsonl"
         echo "✓ Predictions saved to: ${OUTPUT_DIR}/predictions_raw.jsonl"
@@ -73,48 +94,81 @@ if [ ! -f "${OUTPUT_DIR}/predictions_raw.jsonl" ]; then
         echo "ERROR: Predictions file not found"
         exit 1
     fi
-else
-    echo "✓ Using existing predictions: ${OUTPUT_DIR}/predictions_raw.jsonl"
-fi
 
-echo ""
+    # Create checkpoint
+    touch "${CHECKPOINT_STEP1}"
+    echo "$(date)" > "${CHECKPOINT_STEP1}"
+
+    echo ""
+    echo "✓ Step 1 complete: Inference finished"
+    echo "  Checkpoint saved: ${CHECKPOINT_STEP1}"
+    echo ""
+fi
 
 # Step 2: Apply post-processing
-echo "========================================================================"
-echo "STEP 2: Applying NER-Based Post-Processing"
-echo "========================================================================"
-echo ""
+if [ -f "${CHECKPOINT_STEP2}" ]; then
+    echo "========================================================================"
+    echo "STEP 2: SKIPPED (already completed)"
+    echo "========================================================================"
+    echo "  Checkpoint found: ${CHECKPOINT_STEP2}"
+    echo "  Postprocessed file: ${OUTPUT_DIR}/predictions_postprocessed.jsonl"
+    echo ""
+else
+    echo "========================================================================"
+    echo "STEP 2: Applying NER-Based Post-Processing"
+    echo "========================================================================"
+    echo ""
 
-python postprocess_partial_matches.py \
-    --input "${OUTPUT_DIR}/predictions_raw.jsonl" \
-    --output "${OUTPUT_DIR}/predictions_postprocessed.jsonl" \
-    --spacy-model "${SPACY_MODEL}" \
-    --min-expansion-ratio ${MIN_EXPANSION_RATIO}
+    python3 scripts/postprocess_partial_matches.py \
+        --input "${OUTPUT_DIR}/predictions_raw.jsonl" \
+        --output "${OUTPUT_DIR}/predictions_postprocessed.jsonl" \
+        --spacy-model "${SPACY_MODEL}" \
+        --min-expansion-ratio ${MIN_EXPANSION_RATIO}
 
-if [ $? -ne 0 ]; then
-    echo "ERROR: Post-processing failed"
-    exit 1
+    if [ $? -ne 0 ]; then
+        echo "ERROR: Post-processing failed"
+        exit 1
+    fi
+
+    # Create checkpoint
+    touch "${CHECKPOINT_STEP2}"
+    echo "$(date)" > "${CHECKPOINT_STEP2}"
+
+    echo ""
+    echo "✓ Step 2 complete: Post-processing finished"
+    echo "  Checkpoint saved: ${CHECKPOINT_STEP2}"
+    echo ""
 fi
 
-echo ""
-echo "✓ Post-processing complete"
-echo ""
-
 # Step 3: Evaluate and compare
-echo "========================================================================"
-echo "STEP 3: Evaluating Performance"
-echo "========================================================================"
-echo ""
+if [ -f "${CHECKPOINT_STEP3}" ]; then
+    echo "========================================================================"
+    echo "STEP 3: SKIPPED (already completed)"
+    echo "========================================================================"
+    echo "  Checkpoint found: ${CHECKPOINT_STEP3}"
+    echo "  Results: ${OUTPUT_DIR}/postprocessing_results.json"
+    echo ""
+else
+    echo "========================================================================"
+    echo "STEP 3: Evaluating Performance"
+    echo "========================================================================"
+    echo ""
 
-python evaluate_with_postprocessing.py \
-    --predictions-file "${OUTPUT_DIR}/predictions_raw.jsonl" \
-    --gold-file "${TEST_DATA}" \
-    --output-dir "${OUTPUT_DIR}" \
-    --min-expansion-ratio ${MIN_EXPANSION_RATIO}
+    python3 scripts/evaluate_with_postprocessing.py \
+        --predictions-file "${OUTPUT_DIR}/predictions_raw.jsonl" \
+        --gold-file "${TEST_DATA}" \
+        --output-dir "${OUTPUT_DIR}" \
+        --min-expansion-ratio ${MIN_EXPANSION_RATIO}
 
-echo ""
-echo "✓ Evaluation complete"
-echo ""
+    # Create checkpoint
+    touch "${CHECKPOINT_STEP3}"
+    echo "$(date)" > "${CHECKPOINT_STEP3}"
+
+    echo ""
+    echo "✓ Step 3 complete: Evaluation finished"
+    echo "  Checkpoint saved: ${CHECKPOINT_STEP3}"
+    echo ""
+fi
 
 # Print summary
 echo "========================================================================"
@@ -125,6 +179,15 @@ echo "Files generated:"
 echo "  - Raw predictions: ${OUTPUT_DIR}/predictions_raw.jsonl"
 echo "  - Post-processed: ${OUTPUT_DIR}/predictions_postprocessed.jsonl"
 echo "  - Results: ${OUTPUT_DIR}/postprocessing_results.json"
+echo ""
+echo "Checkpoints:"
+echo "  ✓ Step 1: ${CHECKPOINT_STEP1}"
+echo "  ✓ Step 2: ${CHECKPOINT_STEP2}"
+echo "  ✓ Step 3: ${CHECKPOINT_STEP3}"
+echo ""
+echo "To re-run from scratch, delete: ${CHECKPOINT_DIR}"
+echo "To re-run from step 2, delete: ${CHECKPOINT_STEP2} and ${CHECKPOINT_STEP3}"
+echo "To re-run from step 3, delete: ${CHECKPOINT_STEP3}"
 echo ""
 echo "Key insights:"
 echo "  - No training required (inference-time fix)"
