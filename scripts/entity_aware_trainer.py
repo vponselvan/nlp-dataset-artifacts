@@ -277,6 +277,69 @@ class EntityAwareQATrainer(Trainer):
             logger.info("No contrastive loss computed yet")
 
         logger.info(f"{'='*70}\n")
+    
+    def evaluate(
+        self,
+        eval_dataset=None,
+        eval_examples=None,
+        ignore_keys=None,
+        metric_key_prefix="eval",
+    ):
+        """
+        Evaluate with QA-specific metrics.
+        
+        This method handles eval_examples for QA evaluation.
+        """
+        eval_dataset = self.eval_dataset if eval_dataset is None else eval_dataset
+        eval_dataloader = self.get_eval_dataloader(eval_dataset)
+        eval_examples = self.eval_examples if eval_examples is None else eval_examples
+
+        # Temporarily disable metric computation
+        compute_metrics = self.compute_metrics
+        self.compute_metrics = None
+        
+        try:
+            # Compute predictions
+            output = self.evaluation_loop(
+                eval_dataloader,
+                description="Evaluation",
+                prediction_loss_only=True if compute_metrics is None else None,
+                ignore_keys=ignore_keys,
+                metric_key_prefix=metric_key_prefix,
+            )
+        finally:
+            self.compute_metrics = compute_metrics
+
+        # Compute metrics if available
+        if self.compute_metrics is not None and eval_examples is not None:
+            from helpers import postprocess_qa_predictions
+            
+            # Post-process predictions
+            eval_preds = postprocess_qa_predictions(
+                eval_examples,
+                eval_dataset,
+                output.predictions
+            )
+            
+            formatted_predictions = [{"id": k, "prediction_text": v} for k, v in eval_preds.items()]
+            references = [{"id": ex["id"], "answers": ex["answers"]} for ex in eval_examples]
+            
+            # Compute metrics
+            metrics = self.compute_metrics(
+                type('EvalPrediction', (), {'predictions': formatted_predictions, 'label_ids': references})()
+            )
+            
+            # Prefix all keys
+            for key in list(metrics.keys()):
+                if not key.startswith(f"{metric_key_prefix}_"):
+                    metrics[f"{metric_key_prefix}_{key}"] = metrics.pop(key)
+            
+            self.log(metrics)
+        else:
+            metrics = {}
+
+        self.control = self.callback_handler.on_evaluate(self.args, self.state, self.control, metrics)
+        return metrics
 
     def log_final_summary(self):
         """Log final training summary."""
