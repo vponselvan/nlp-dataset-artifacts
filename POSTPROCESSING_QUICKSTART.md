@@ -49,7 +49,18 @@ Expands partial predictions to full entity boundaries:
 | `--spacy-model` | en_core_web_sm | NER model to use |
 | `--no-metadata` | False | Skip saving expansion metadata |
 
-## Expected Results
+## Actual Results
+
+**Tested on Entity-Aware Model (Intermediate Checkpoint)**
+
+| Metric | Before | After | Change |
+|--------|--------|-------|--------|
+| **AddSent EM** | 83.65% | 83.37% | -0.28 points |
+| **F1 Score** | 90.44% | 90.27% | -0.17 points |
+
+⚠️ **Note**: Tested on intermediate checkpoint, not final Entity-Aware model (89.89% EM). Needs re-evaluation.
+
+## Expected Results (Original Hypothesis)
 
 | Metric | Improvement |
 |--------|-------------|

@@ -153,9 +153,21 @@ cd scripts
 - Post-processing: ~30 seconds
 - Evaluation: ~30 seconds
 
-## Expected Results
+## Actual Results
 
-### Quantitative Improvement
+### Evaluation on Entity-Aware Model (Intermediate Checkpoint)
+
+| Metric | Before | After | Change |
+|--------|--------|-------|--------|
+| **AddSent EM** | 83.65% | 83.37% | -0.28pp |
+| **AddSent F1** | 90.44% | 90.27% | -0.17pp |
+
+**Note**: Evaluation was performed on an intermediate checkpoint (83.65% EM) of the Entity-Aware model, not the final trained model (89.89% EM). Post-processing showed a slight decrease, suggesting:
+- The model at this checkpoint may already handle entity boundaries well
+- Over-expansion may be occurring
+- Needs re-evaluation on the final Entity-Aware model for accurate assessment
+
+### Expected Results (Original Hypothesis)
 
 | Metric | Before | After | Improvement |
 |--------|--------|-------|-------------|
@@ -163,7 +175,7 @@ cd scripts
 | **AddSent F1** | 76.50% | 78-80% | +1.5-3.5pp |
 | **Partial match errors** | 30.6% | 18-22% | -8 to -12pp |
 
-**Key insight**: Small but consistent improvement with zero training cost.
+**Key insight**: Post-processing effectiveness may vary depending on base model quality.
 
 ### Expansion Statistics (Expected)
 
