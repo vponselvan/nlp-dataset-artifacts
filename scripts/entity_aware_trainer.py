@@ -82,7 +82,7 @@ class EntityAwareQATrainer(Trainer):
             "avg_hard_negatives": 0.0,
         }
 
-    def compute_loss(self, model, inputs, return_outputs=False):
+    def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
         """
         Compute combined QA loss and contrastive loss.
 
@@ -90,6 +90,7 @@ class EntityAwareQATrainer(Trainer):
             model: The QA model
             inputs: Dict containing input tensors
             return_outputs: Whether to return model outputs
+            num_items_in_batch: Number of items in batch (for newer transformers versions)
 
         Returns:
             Combined loss (and optionally model outputs)
