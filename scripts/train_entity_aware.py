@@ -13,8 +13,10 @@ Expected improvement: +8-12% on entity-specific examples
 """
 
 import sys
+import os
 
-sys.path.append("..")
+# Add parent directory to path to import helpers
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import json
 import argparse
@@ -29,6 +31,12 @@ from transformers import (
 import evaluate
 
 from helpers import prepare_train_dataset_qa, prepare_validation_dataset_qa
+
+# Add scripts directory to path for importing entity_aware_trainer
+scripts_dir = os.path.dirname(os.path.abspath(__file__))
+if scripts_dir not in sys.path:
+    sys.path.insert(0, scripts_dir)
+
 from entity_aware_trainer import EntityAwareQATrainer
 
 
