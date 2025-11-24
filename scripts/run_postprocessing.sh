@@ -18,7 +18,7 @@ echo "========================================================================"
 echo ""
 
 # Configuration
-MODEL_DIR="./trained_model_electra_base_80_20"
+MODEL_DIR="./trained_model_entity_aware"
 TEST_DATA="./data/addsent_eval.jsonl"
 OUTPUT_DIR="./postprocessing_results"
 MIN_EXPANSION_RATIO=1.3
@@ -155,6 +155,8 @@ else
     echo ""
 
     python3 scripts/evaluate_with_postprocessing.py \
+        --model "${MODEL_DIR}" \
+        --test-data "${TEST_DATA}" \
         --predictions-file "${OUTPUT_DIR}/predictions_raw.jsonl" \
         --gold-file "${TEST_DATA}" \
         --output-dir "${OUTPUT_DIR}" \

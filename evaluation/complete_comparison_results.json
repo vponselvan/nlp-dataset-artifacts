@@ -77,6 +77,18 @@
       "color": "#e67e22",
       "marker": "h",
       "mitigation_strategy": "negation_aware"
+    },
+    {
+      "name": "Entity-Aware (ELECTRA-base)",
+      "model_size": "110M",
+      "training_data": "80-20 + Entity Contrastive (3x weighted)",
+      "addsent_em": 89.89,
+      "addsent_f1": 94.16,
+      "squad_em": 90.73,
+      "squad_f1": 94.89,
+      "color": "#8e44ad",
+      "marker": "X",
+      "mitigation_strategy": "entity_aware"
     }
   ],
   "key_comparisons": {
@@ -105,6 +117,18 @@
       "addsent_improvement": 0.50,
       "squad_improvement": 0.10,
       "target_error_pattern": "Negation Confusion (40.4% of errors)"
+    },
+    "entity_aware_mitigation": {
+      "description": "Entity-Aware training vs 80-20 Original ELECTRA-base",
+      "addsent_improvement": 1.46,
+      "squad_improvement": 0.76,
+      "target_error_pattern": "Entity Confusion (29.8% of errors)"
+    },
+    "best_mitigation_comparison": {
+      "description": "Entity-Aware vs Negation-Aware",
+      "addsent_improvement": 0.96,
+      "squad_improvement": 0.66,
+      "note": "Entity-Aware achieves best single-strategy performance"
     }
   },
   "insights": [
@@ -114,8 +138,11 @@
     "ELECTRA-base 80-20 original achieved 88.43% EM on adversarial data",
     "Data augmentation slightly reduced performance for ELECTRA-base (88.43% → 86.12%)",
     "Model capacity is critical for effective adversarial training without performance trade-offs",
-    "Negation-Aware training achieved NEW BEST: 88.93% EM on AddSent, 90.07% EM on SQuAD",
-    "Targeted mitigation (negation-aware) improved both adversarial (+0.50%) and clean (+0.10%) performance",
-    "3x loss weighting for negation examples effectively reduced negation confusion errors"
+    "Negation-Aware training improved performance: 88.93% EM on AddSent (+0.50%), 90.07% EM on SQuAD (+0.10%)",
+    "Entity-Aware training achieved NEW BEST: 89.89% EM on AddSent (+1.46%), 90.73% EM on SQuAD (+0.76%)",
+    "Entity-Aware outperforms Negation-Aware by +0.96% on adversarial and +0.66% on clean data",
+    "Targeted mitigation strategies improve both adversarial robustness and clean performance",
+    "3x loss weighting for contrastive examples effectively reduces targeted error patterns",
+    "Entity confusion (29.8% of errors) has larger impact than negation confusion (40.4% frequency but smaller effect)"
   ]
 }

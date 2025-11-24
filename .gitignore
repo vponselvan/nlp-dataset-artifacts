@@ -28,3 +28,6 @@ trained_model_base/*
 
 # Exclude evaluation results directories (keep JSON files only)
 eval_results_*/
+
+# Exclude post-processing results (generated outputs)
+postprocessing_results/

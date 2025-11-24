@@ -15,8 +15,6 @@ import logging
 from pathlib import Path
 from typing import Dict, List, Tuple
 
-from postprocess_partial_matches import PartialMatchPostprocessor
-
 # Configure logging
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
@@ -96,7 +94,15 @@ def evaluate_predictions(predictions_file: str, gold_file: str) -> Dict[str, flo
         for line in f:
             example = json.loads(line.strip())
             qid = example.get("id", example.get("question_id"))
-            answer = example.get("answer", example.get("gold_answer", ""))
+            
+            # Handle different answer formats
+            if "answers" in example and isinstance(example["answers"], dict):
+                # SQuAD format: {"answers": {"text": ["answer1", "answer2"]}}
+                answer = example["answers"]["text"][0] if example["answers"]["text"] else ""
+            else:
+                # Simple format: {"answer": "answer"}
+                answer = example.get("answer", example.get("gold_answer", ""))
+            
             gold_answers[qid] = answer
 
     # Compute metrics
@@ -116,6 +122,9 @@ def evaluate_predictions(predictions_file: str, gold_file: str) -> Dict[str, flo
 
         exact_matches.append(em)
         f1_scores.append(f1)
+    
+    logger.info(f"Evaluated {len(exact_matches)} examples")
+    logger.info(f"Sample - Pred: '{list(predictions.values())[0]}', Gold: '{list(gold_answers.values())[0]}'")
 
     return {
         "exact_match": (
@@ -234,13 +243,18 @@ def main():
 
         postprocessed_file = output_dir / "predictions_postprocessed.jsonl"
 
-        # Apply post-processing
-        postprocessor = PartialMatchPostprocessor()
-        postprocessor.postprocess_file(
-            input_file=args.predictions_file,
-            output_file=str(postprocessed_file),
-            min_expansion_ratio=args.min_expansion_ratio,
-        )
+        # Check if postprocessed file already exists
+        if postprocessed_file.exists():
+            logger.info(f"Using existing postprocessed file: {postprocessed_file}")
+        else:
+            # Apply post-processing
+            from postprocess_partial_matches import PartialMatchPostprocessor
+            postprocessor = PartialMatchPostprocessor()
+            postprocessor.postprocess_file(
+                input_file=args.predictions_file,
+                output_file=str(postprocessed_file),
+                min_expansion_ratio=args.min_expansion_ratio,
+            )
 
         # Evaluate
         gold_file = args.gold_file or args.test_data
