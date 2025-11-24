@@ -129,6 +129,16 @@
       "addsent_improvement": 0.96,
       "squad_improvement": 0.66,
       "note": "Entity-Aware achieves best single-strategy performance"
+    },
+    "postprocessing_mitigation": {
+      "description": "NER-based post-processing on Entity-Aware model (inference-time)",
+      "base_model": "Entity-Aware checkpoint",
+      "addsent_em_before": 83.65,
+      "addsent_em_after": 83.37,
+      "addsent_improvement": -0.28,
+      "f1_improvement": -0.17,
+      "target_error_pattern": "Partial Match (30.6% of errors)",
+      "note": "Tested on intermediate checkpoint (83.65% EM), not final model (89.89% EM). Post-processing slightly decreased performance."
     }
   },
   "insights": [
@@ -143,6 +153,8 @@
     "Entity-Aware outperforms Negation-Aware by +0.96% on adversarial and +0.66% on clean data",
     "Targeted mitigation strategies improve both adversarial robustness and clean performance",
     "3x loss weighting for contrastive examples effectively reduces targeted error patterns",
-    "Entity confusion (29.8% of errors) has larger impact than negation confusion (40.4% frequency but smaller effect)"
+    "Entity confusion (29.8% of errors) has larger impact than negation confusion (40.4% frequency but smaller effect)",
+    "Post-processing (NER-based entity expansion) showed -0.28% EM decrease on intermediate checkpoint",
+    "Post-processing needs to be re-evaluated on final Entity-Aware model (89.89% EM) for accurate assessment"
   ]
 }
