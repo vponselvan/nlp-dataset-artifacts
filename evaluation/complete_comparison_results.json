@@ -65,6 +65,18 @@
       "squad_f1": 93.62,
       "color": "#27ae60",
       "marker": "*"
+    },
+    {
+      "name": "Negation-Aware (ELECTRA-base)",
+      "model_size": "110M",
+      "training_data": "80-20 + Negation Contrastive (3x weighted)",
+      "addsent_em": 88.93,
+      "addsent_f1": 93.93,
+      "squad_em": 90.07,
+      "squad_f1": 94.48,
+      "color": "#e67e22",
+      "marker": "h",
+      "mitigation_strategy": "negation_aware"
     }
   ],
   "key_comparisons": {
@@ -87,14 +99,23 @@
       "description": "Final ELECTRA-base model vs original ELECTRA-small baseline",
       "addsent_improvement": 32.13,
       "squad_improvement": 9.76
+    },
+    "negation_aware_mitigation": {
+      "description": "Negation-Aware training vs 80-20 Original ELECTRA-base",
+      "addsent_improvement": 0.50,
+      "squad_improvement": 0.10,
+      "target_error_pattern": "Negation Confusion (40.4% of errors)"
     }
   },
   "insights": [
     "Model scaling alone (ELECTRA-small → ELECTRA-base) improved adversarial robustness by 14.91%",
     "Adversarial training with ELECTRA-small showed a trade-off: +9.49% adversarial, -11.56% clean",
     "Adversarial training with ELECTRA-base eliminated the trade-off: +17.22% adversarial, +2.46% clean",
-    "ELECTRA-base 80-20 original achieved 88.43% EM on adversarial data - the BEST result!",
+    "ELECTRA-base 80-20 original achieved 88.43% EM on adversarial data",
     "Data augmentation slightly reduced performance for ELECTRA-base (88.43% → 86.12%)",
-    "Model capacity is critical for effective adversarial training without performance trade-offs"
+    "Model capacity is critical for effective adversarial training without performance trade-offs",
+    "Negation-Aware training achieved NEW BEST: 88.93% EM on AddSent, 90.07% EM on SQuAD",
+    "Targeted mitigation (negation-aware) improved both adversarial (+0.50%) and clean (+0.10%) performance",
+    "3x loss weighting for negation examples effectively reduced negation confusion errors"
   ]
 }
