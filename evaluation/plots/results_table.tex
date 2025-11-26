@@ -1,0 +1,19 @@
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+\textbf{Model} & \textbf{SQuAD EM} & \textbf{AddSent EM} & \textbf{Gap} \\
+\midrule
+Baseline (ELECTRA-base) & 85.46 & 68.90 & -16.56 \\
+80-20 Original & 89.97 & 88.43 & -1.54 \\
++ Negation-Aware & 90.07 & 88.93 & -1.14 \\
++ Entity-Aware & \textbf{90.73} & \textbf{89.89} & \textbf{-0.84} \\
+\midrule
+\textbf{Total Improvement} & \textbf{+5.27} & \textbf{+20.99} & \textbf{+15.72} \\
+\bottomrule
+\end{tabular}
+\caption{Progressive improvement from baseline to Entity-Aware model. The adversarial gap reduced from -16.56pp to -0.84pp, an 84.9\% reduction.}
+\label{tab:mitigation_results}
+\end{table}
