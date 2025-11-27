@@ -1,14 +1,10 @@
-#!/usr/bin/env python3
 """
 Negation-Aware Contrastive Pair Generation
 
 This script implements Step 1 of the Negation-Aware Contrastive Training strategy:
 - Identifies examples containing negation words in the training set
 - Generates contrastive pairs (positive/affirmative vs negative/negated versions)
-- Uses rule-based templates and optional LLM-based augmentation
 - Marks examples for weighted loss during training (3x weight for negation)
-
-Goal: Address the 40.4% of errors caused by "Negation Confusion"
 """
 
 import json
@@ -134,7 +130,6 @@ def create_negated_context(context: str, max_attempts: int = 3) -> str:
     )
 
     for template in templates:
-        # Try to apply template to first sentence (most likely to contain answer)
         sentences = re.split(r"[.!?]", context)
         if not sentences:
             continue
@@ -150,13 +145,10 @@ def create_negated_context(context: str, max_attempts: int = 3) -> str:
             flags=re.IGNORECASE,
         )
 
-        # Check if transformation was successful
         if negated_sentence != first_sentence:
-            # Reconstruct context with negated first sentence
             negated_context = negated_sentence + "." + ".".join(sentences[1:])
             return negated_context
 
-    # Fallback: Add explicit negation statement at the beginning
     return f"It is not the case that {context[0].lower()}{context[1:]}"
 
 
@@ -209,17 +201,7 @@ def generate_contrastive_pairs(
     """
     random.seed(seed)
 
-    print("=" * 70)
-    print("Negation-Aware Contrastive Pair Generation")
-    print("=" * 70)
-    print(f"Input dataset: {dataset_path}")
-    print(f"Output path: {output_path}")
-    print(f"Negation weight: {negation_weight}x")
-    print(f"Augmentation ratio: {augmentation_ratio * 100:.1f}%")
-    print()
-
     # Load original dataset
-    print("Loading dataset...")
     examples = []
     with open(dataset_path, "r", encoding="utf-8") as f:
         for line in f:
@@ -240,7 +222,6 @@ def generate_contrastive_pairs(
     augmented_examples = []
 
     # Process each example
-    print("\nGenerating contrastive pairs...")
     for i, ex in enumerate(examples):
         if i % 1000 == 0:
             print(f"  Processed {i}/{len(examples)} examples...")
@@ -304,40 +285,16 @@ def generate_contrastive_pairs(
             stats["augmented_with_negation"] += 1
 
     # Save augmented dataset
-    print(f"\nSaving augmented dataset to {output_path}...")
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
 
     with open(output_path, "w", encoding="utf-8") as f:
         for ex in augmented_examples:
             f.write(json.dumps(ex) + "\n")
 
-    # Print statistics
-    print("\n" + "=" * 70)
-    print("Generation Statistics")
-    print("=" * 70)
-    print(f"Original examples: {stats['total']}")
-    print(
-        f"  - Already containing negation: {stats['already_negated']} ({stats['already_negated']/stats['total']*100:.1f}%)"
-    )
-    print(
-        f"  - Positive (affirmative) examples: {stats['positive_examples']} ({stats['positive_examples']/stats['total']*100:.1f}%)"
-    )
-    print(f"\nAugmented examples: {stats['augmented_with_negation']}")
-    print(f"  - Additive negation (distractor): {stats['additive_negation']}")
-    print(f"  - Transformative negation (modified): {stats['transformative_negation']}")
-    print(
-        f"\nTotal output examples: {len(augmented_examples)} ({len(augmented_examples)/stats['total']*100:.1f}% of original)"
-    )
-    print(
-        f"Negation examples (weighted {negation_weight}x): {stats['already_negated'] + stats['additive_negation'] + stats['transformative_negation']}"
-    )
-    print("=" * 70)
-
     # Save statistics
     stats_path = output_path.replace(".jsonl", "_stats.json")
     with open(stats_path, "w", encoding="utf-8") as f:
         json.dump(stats, f, indent=2)
-    print(f"\nStatistics saved to {stats_path}")
 
 
 def main():

@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Entity-Aware Contrastive Trainer
 
@@ -6,25 +5,6 @@ This script implements Step 3 of Entity-Aware Contrastive Training strategy:
 - Custom Trainer with contrastive ranking loss
 - Maximizes score difference between correct entity and hard negatives
 - Uses weighted loss for entity-rich examples
-- Compatible with HuggingFace Trainer API
-
-Contrastive Loss:
-    L_contrastive = -log(exp(S_correct) / Σ exp(S_distractor))
-
-where S_correct is the score for the ground truth answer span,
-and S_distractor are scores for hard negative entity spans.
-
-Usage:
-    from entity_aware_trainer import EntityAwareQATrainer
-
-    trainer = EntityAwareQATrainer(
-        model=model,
-        args=training_args,
-        train_dataset=train_dataset,
-        contrastive_weight=0.5,  # Balance between QA loss and contrastive loss
-        ...
-    )
-    trainer.train()
 """
 
 import torch
@@ -40,12 +20,6 @@ logger = logging.getLogger(__name__)
 class EntityAwareQATrainer(Trainer):
     """
     Custom Trainer that implements entity-aware contrastive learning for QA.
-
-    Key features:
-    - Computes standard QA loss for start/end positions
-    - Adds contrastive ranking loss for hard negative entities
-    - Applies weighted loss for entity-rich examples
-    - Balances QA and contrastive objectives
     """
 
     def __init__(
@@ -161,8 +135,6 @@ class EntityAwareQATrainer(Trainer):
         The loss encourages the model to:
         1. Assign high scores to the correct answer span
         2. Assign low scores to hard negative entity spans
-
-        Formula: L = -log(exp(S_correct) / (exp(S_correct) + Σ exp(S_neg)))
 
         Args:
             start_logits: Start position logits [batch_size, seq_len]
@@ -295,8 +267,8 @@ class EntityAwareQATrainer(Trainer):
         eval_examples = self.eval_examples if eval_examples is None else eval_examples
 
         # Temporarily disable metric computation
-        compute_metrics = self.compute_metrics
         self.compute_metrics = None
+        compute_metrics = self.compute_metrics
         
         try:
             # Compute predictions
@@ -452,24 +424,3 @@ def prepare_inputs_with_hard_negatives(examples, tokenizer, max_length=384):
 
     return tokenized
 
-
-if __name__ == "__main__":
-    print("Entity-Aware Contrastive Trainer")
-    print("=" * 70)
-    print("\nThis module provides custom trainers for entity-aware training.")
-    print("\nKey Features:")
-    print("  - Contrastive ranking loss for entity discrimination")
-    print("  - Weighted loss for entity-rich examples")
-    print("  - Compatible with HuggingFace Trainer API")
-    print("\nUsage:")
-    print("  from entity_aware_trainer import EntityAwareQATrainer")
-    print("  ")
-    print("  trainer = EntityAwareQATrainer(")
-    print("      model=model,")
-    print("      args=training_args,")
-    print("      train_dataset=train_dataset,")
-    print("      contrastive_weight=0.5,  # Balance QA and contrastive loss")
-    print("      margin=1.0,")
-    print("  )")
-    print("  trainer.train()")
-    print("  trainer.log_final_summary()")

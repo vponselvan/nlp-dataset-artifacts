@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Entity-Aware Contrastive Pair Generation
 
@@ -7,8 +6,6 @@ This script implements Step 1-2 of Entity-Aware Contrastive Training strategy:
 - Identifies hard negative entities of the same type as ground truth
 - Marks entity spans for contrastive loss during training
 - Creates augmented examples with entity substitutions
-
-Goal: Address 29.9% of errors caused by "Entity Substitution"
 """
 
 import json
@@ -216,28 +213,14 @@ def generate_entity_contrastive_pairs(
     """
     random.seed(seed)
 
-    print("=" * 70)
-    print("Entity-Aware Contrastive Pair Generation")
-    print("=" * 70)
-    print(f"Input dataset: {dataset_path}")
-    print(f"Output path: {output_path}")
-    print(f"Entity weight: {entity_weight}x")
-    print(f"Augmentation ratio: {augmentation_ratio * 100:.1f}%")
-    print()
-
     # Initialize entity extractor
-    print("Initializing spaCy NER model...")
     extractor = EntityExtractor()
-    print("✓ NER model loaded\n")
 
     # Load dataset
-    print("Loading dataset...")
     examples = []
     with open(dataset_path, "r", encoding="utf-8") as f:
         for line in f:
             examples.append(json.loads(line))
-
-    print(f"Loaded {len(examples)} examples\n")
 
     # Statistics
     stats = {
@@ -253,11 +236,7 @@ def generate_entity_contrastive_pairs(
     augmented_examples = []
 
     # Process each example
-    print("Extracting entities and finding hard negatives...")
     for i, ex in enumerate(examples):
-        if i % 500 == 0:
-            print(f"  Processed {i}/{len(examples)} examples...")
-
         context = ex["context"]
 
         # Handle multiple answers
@@ -345,41 +324,11 @@ def generate_entity_contrastive_pairs(
         )
 
     # Save augmented dataset
-    print(f"\nSaving augmented dataset to {output_path}...")
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
 
     with open(output_path, "w", encoding="utf-8") as f:
         for ex in augmented_examples:
             f.write(json.dumps(ex) + "\n")
-
-    # Print statistics
-    print("\n" + "=" * 70)
-    print("Generation Statistics")
-    print("=" * 70)
-    print(f"Original examples: {stats['total']}")
-    print(
-        f"  - Examples with entities: {stats['with_entities']} ({stats['with_entities']/stats['total']*100:.1f}%)"
-    )
-    print(
-        f"  - Examples with hard negatives: {stats['with_hard_negatives']} ({stats['with_hard_negatives']/stats['total']*100:.1f}%)"
-    )
-    print(f"\nHard negatives found: {stats['hard_negatives_found']}")
-    print(f"  - Average per example: {stats['avg_hard_negatives']:.2f}")
-    print(f"\nEntity substitution augmentations: {stats['augmented_substitutions']}")
-    print(
-        f"\nTotal output examples: {len(augmented_examples)} ({len(augmented_examples)/stats['total']*100:.1f}% of original)"
-    )
-    print(
-        f"Entity examples (weighted {entity_weight}x): {stats['with_hard_negatives'] + stats['augmented_substitutions']}"
-    )
-
-    print(f"\nEntity Type Distribution:")
-    for ent_type, count in sorted(
-        stats["entity_type_distribution"].items(), key=lambda x: -x[1]
-    ):
-        print(f"  {ent_type}: {count} ({count/stats['total']*100:.1f}%)")
-
-    print("=" * 70)
 
     # Save statistics
     stats_dict = {
@@ -396,7 +345,6 @@ def generate_entity_contrastive_pairs(
     stats_path = output_path.replace(".jsonl", "_stats.json")
     with open(stats_path, "w", encoding="utf-8") as f:
         json.dump(stats_dict, f, indent=2)
-    print(f"\nStatistics saved to {stats_path}")
 
 
 def main():

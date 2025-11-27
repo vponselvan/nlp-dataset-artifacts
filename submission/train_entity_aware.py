@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Train ELECTRA with Entity-Aware Contrastive Learning
 
@@ -7,9 +6,6 @@ This script implements Step 3 of Entity-Aware Contrastive Training strategy:
 - Uses custom EntityAwareQATrainer with contrastive ranking loss
 - Fine-tunes ELECTRA-base with entity discrimination objective
 - Evaluates on both clean (SQuAD) and adversarial (AddSent) data
-
-Goal: Reduce "Entity Substitution" errors from 29.9% baseline
-Expected improvement: +8-12% on entity-specific examples
 """
 
 import sys
@@ -66,18 +62,7 @@ def load_entity_aware_dataset(path: str):
     entity_examples = [ex for ex in examples if ex.get("is_entity_example", False)]
     augmented = [ex for ex in examples if "entity_sub" in ex.get("id", "")]
 
-    total_hard_negs = sum(len(ex.get("hard_negatives", [])) for ex in has_hard_negs)
-
-    print(f"\nDataset Statistics:")
-    print(f"  Total examples: {len(examples)}")
-    print(
-        f"  Examples with hard negatives: {len(has_hard_negs)} ({len(has_hard_negs)/len(examples)*100:.1f}%)"
-    )
-    print(
-        f"  Entity examples (weighted): {len(entity_examples)} ({len(entity_examples)/len(examples)*100:.1f}%)"
-    )
-    print(f"  Entity substitution augmentations: {len(augmented)}")
-    print(f"  Total hard negatives: {total_hard_negs}")
+    total_hard_negs = sum(len(ex.get("hard_negatives", [])) for ex in has_hard_negs)    
 
     if has_hard_negs:
         avg_hard_negs = total_hard_negs / len(has_hard_negs)
@@ -205,36 +190,14 @@ def main():
 
     args = parser.parse_args()
 
-    print("=" * 80)
-    print("Entity-Aware Contrastive Training")
-    print("=" * 80)
-    print(f"Model: {args.model}")
-    print(f"Training data: {args.train_data}")
-    print(f"Output directory: {args.output_dir}")
-    print(f"Batch size: {args.batch_size}")
-    print(f"Learning rate: {args.learning_rate}")
-    print(f"Epochs: {args.num_epochs}")
-    print(f"Contrastive weight: {args.contrastive_weight}")
-    print()
-
     # Load tokenizer and model
-    print("Loading model and tokenizer...")
     tokenizer = AutoTokenizer.from_pretrained(args.model, use_fast=True)
     model = AutoModelForQuestionAnswering.from_pretrained(args.model)
 
-    # Make tensors contiguous (ELECTRA-specific fix)
     if hasattr(model, "electra"):
         for param in model.electra.parameters():
             if not param.is_contiguous():
                 param.data = param.data.contiguous()
-
-    print(f"Model parameters: {sum(p.numel() for p in model.parameters()) / 1e6:.1f}M")
-    print()
-
-    # Load datasets
-    print("\n" + "=" * 80)
-    print("Loading Datasets")
-    print("=" * 80)
 
     train_dataset = load_entity_aware_dataset(args.train_data)
     eval_squad = datasets.load_dataset(
@@ -244,12 +207,6 @@ def main():
         "json", data_files=args.eval_addsent, split="train"
     )
 
-    print(f"\nEvaluation datasets:")
-    print(f"  SQuAD: {len(eval_squad)} examples")
-    print(f"  AddSent: {len(eval_addsent)} examples")
-
-    # Tokenize datasets
-    print("\nTokenizing datasets...")
     train_dataset_tokenized = train_dataset.map(
         lambda ex: prepare_train_dataset_with_entities(ex, tokenizer),
         batched=True,
@@ -299,15 +256,6 @@ def main():
             predictions=eval_preds.predictions, references=eval_preds.label_ids
         )
 
-    # Initialize custom trainer
-    print("\n" + "=" * 80)
-    print("Initializing Entity-Aware Trainer")
-    print("=" * 80)
-    print(f"Contrastive weight: {args.contrastive_weight}")
-    print(
-        f"Loss composition: {(1-args.contrastive_weight)*100:.0f}% QA + {args.contrastive_weight*100:.0f}% Contrastive"
-    )
-
     trainer = EntityAwareQATrainer(
         model=model,
         args=training_args,
@@ -321,18 +269,12 @@ def main():
         log_stats=True,
     )
 
-    # Train
-    print("\n" + "=" * 80)
-    print("Training")
-    print("=" * 80)
-
     train_result = trainer.train()
 
     # Log summary
     trainer.log_final_summary()
 
     # Save model
-    print("\nSaving model...")
     trainer.save_model()
     tokenizer.save_pretrained(args.output_dir)
 
@@ -341,25 +283,11 @@ def main():
     trainer.log_metrics("train", metrics)
     trainer.save_metrics("train", metrics)
 
-    # Evaluate on SQuAD
-    print("\n" + "=" * 80)
-    print("Evaluating on SQuAD (Clean)")
-    print("=" * 80)
-
     squad_metrics = trainer.evaluate(
         eval_dataset=eval_squad_tokenized,
         eval_examples=eval_squad,
         metric_key_prefix="eval_squad",
     )
-
-    print(f"\nSQuAD Results:")
-    print(f"  Exact Match: {squad_metrics['eval_squad_exact_match']:.2f}")
-    print(f"  F1: {squad_metrics['eval_squad_f1']:.2f}")
-
-    # Evaluate on AddSent
-    print("\n" + "=" * 80)
-    print("Evaluating on AddSent (Adversarial)")
-    print("=" * 80)
 
     # Create temporary trainer for AddSent evaluation
     addsent_trainer = EntityAwareQATrainer(
@@ -375,12 +303,6 @@ def main():
 
     addsent_metrics = addsent_trainer.evaluate(metric_key_prefix="eval_addsent")
 
-    print(f"\nAddSent Results:")
-    print(f"  Exact Match: {addsent_metrics['eval_addsent_exact_match']:.2f}")
-    print(f"  F1: {addsent_metrics['eval_addsent_f1']:.2f}")
-
-    # Save all metrics
-    print("\nSaving evaluation results...")
     all_metrics = {
         "train": metrics,
         "squad": squad_metrics,
@@ -398,21 +320,6 @@ def main():
     results_path = Path(args.output_dir) / "entity_aware_results.json"
     with open(results_path, "w") as f:
         json.dump(all_metrics, f, indent=2)
-
-    print(f"Results saved to {results_path}")
-
-    # Print summary
-    print("\n" + "=" * 80)
-    print("Training Complete!")
-    print("=" * 80)
-    print(f"Model saved to: {args.output_dir}")
-    print(f"\nFinal Performance:")
-    print(f"  SQuAD EM:   {squad_metrics['eval_squad_exact_match']:.2f}%")
-    print(f"  AddSent EM: {addsent_metrics['eval_addsent_exact_match']:.2f}%")
-    print(
-        f"  Drop: {squad_metrics['eval_squad_exact_match'] - addsent_metrics['eval_addsent_exact_match']:.2f}%"
-    )
-    print("=" * 80)
 
 
 if __name__ == "__main__":

@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Negation-Aware Contrastive Trainer
 
@@ -6,18 +5,6 @@ This script implements Step 2 of the Negation-Aware Contrastive Training strateg
 - Custom Trainer with weighted loss function
 - Multiplies loss by 3x for examples marked with negation
 - Forces model to pay 3x more attention to negation cues
-- Compatible with HuggingFace Trainer API
-
-Usage:
-    from negation_aware_trainer import NegationAwareTrainer
-
-    trainer = NegationAwareTrainer(
-        model=model,
-        args=training_args,
-        train_dataset=train_dataset,
-        ...
-    )
-    trainer.train()
 """
 
 import torch
@@ -93,32 +80,21 @@ class NegationAwareTrainer(Trainer):
             )
             end_logits = outputs.end_logits if hasattr(outputs, "end_logits") else None
 
-        # Apply loss weights if provided
         if loss_weights is not None:
-            # Ensure weights are on the same device as loss
             if isinstance(loss_weights, torch.Tensor):
                 loss_weights = loss_weights.to(loss.device)
 
-                # Handle per-example loss for QA models
                 if start_logits is not None and end_logits is not None:
-                    # QA model: recompute per-example loss and apply weights
                     loss = self._compute_weighted_qa_loss(
                         start_logits, end_logits, inputs, loss_weights
                     )
                 else:
-                    # Classification model: apply weights directly
-                    # Expand loss to per-example if needed
                     if loss.dim() == 0:
-                        # Loss is already averaged, we need per-example losses
-                        # This happens when loss is computed inside the model
-                        # In this case, we approximate by scaling the batch loss
                         batch_size = loss_weights.size(0)
                         avg_weight = loss_weights.mean()
                         loss = loss * avg_weight
                     else:
-                        # Per-example loss available
-                        loss = loss * loss_weights
-                        loss = loss.mean()
+                        loss = (loss * loss_weights).mean()
 
                 # Update statistics
                 self.weight_stats["total_steps"] += 1
@@ -187,27 +163,6 @@ class NegationAwareTrainer(Trainer):
 
         # Return mean
         return weighted_loss.mean()
-
-    def log_weight_summary(self):
-        """Log summary statistics of weight usage."""
-        if self.weight_stats["total_steps"] > 0:
-            logger.info("\n" + "=" * 70)
-            logger.info("Negation-Aware Training Summary")
-            logger.info("=" * 70)
-            logger.info(f"Total training steps: {self.weight_stats['total_steps']}")
-            logger.info(
-                f"Steps with weighted examples: {self.weight_stats['weighted_steps']} "
-                f"({self.weight_stats['weighted_steps']/self.weight_stats['total_steps']*100:.1f}%)"
-            )
-            logger.info(
-                f"Average loss: {self.weight_stats['total_loss']/self.weight_stats['total_steps']:.4f}"
-            )
-            if self.weight_stats["weighted_steps"] > 0:
-                logger.info(
-                    f"Average weighted loss: "
-                    f"{self.weight_stats['weighted_loss']/self.weight_stats['weighted_steps']:.4f}"
-                )
-            logger.info("=" * 70)
 
 
 class NegationAwareQATrainer(NegationAwareTrainer):
@@ -305,22 +260,3 @@ def prepare_inputs_with_weights(examples, tokenizer, max_length=384):
     tokenized["loss_weights"] = torch.tensor(loss_weights, dtype=torch.float32)
 
     return tokenized
-
-
-if __name__ == "__main__":
-    print("Negation-Aware Contrastive Trainer")
-    print("=" * 70)
-    print("\nThis module provides custom trainers for negation-aware training.")
-    print("\nUsage:")
-    print("  from negation_aware_trainer import NegationAwareQATrainer")
-    print("  ")
-    print("  trainer = NegationAwareQATrainer(")
-    print("      model=model,")
-    print("      args=training_args,")
-    print("      train_dataset=train_dataset,")
-    print("      eval_dataset=eval_dataset,")
-    print("      eval_examples=eval_examples,")
-    print("      tokenizer=tokenizer,")
-    print("  )")
-    print("  trainer.train()")
-    print("  trainer.log_weight_summary()")
